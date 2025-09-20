@@ -4,9 +4,304 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DigiteX | Home</title>
-    <link rel="stylesheet" href="home.css">
-    <style>
+       <style>
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
+@font-face{
+    font-family: 'digitfont';
+    src: url('./digifont.ttf') format('truetype');
+
+}html {
+  background-color: #000000;
+  margin: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 100;
+  font-size: 1.2em;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  background-color: #161616;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #333;
+  border-radius: 100px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 90px;
+  margin-right: 10px;
+}
+
+.logofont {
+  font-family: 'digitfont', sans-serif;
+  font-size: 1.8em;
+  color: #ffffff;
+  user-select: none;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  border-bottom-color: #28829e; 
+  color: #fff;
+}
+
+.nav-links a.active {
+  border-bottom-color: #28829e;
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; 
+  }
+}
+.top{
+    width: 100%;
+    height: 70vh;
+    background: url('bg.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border-bottom: 2px solid #abe1f1;
+    padding:30px;
+    padding-top:50px;
+}
+/* modern button style */
+
+button {
+    background-color: #28829e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textarea{
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.5);
+    width: fit-content ;
+    padding: 30px;
+    border-radius: 20px;
+}
+footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+}
+.meetteam {
+    margin-top: 80px;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-radius: 30px;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.meetteam::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(40, 130, 158, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.meetteam h2 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.meetteam h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #28829e, #4fb3d1);
+    border-radius: 2px;
+}
+
+.meetteam > p {
+    font-size: 1.2em;
+    color: #bbb;
+    max-width: 700px;
+    margin: 30px auto 50px;
+    text-align: center;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.member-card {
+    background: linear-gradient(145deg, #1e1e1e, #0d0d0d);
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    padding: 30px 25px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.member-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(40, 130, 158, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.member-card:hover::before {
+    left: 100%;
+}
+
+.member-card:hover {
+    transform: translateY(-8px);
+    border-color: #28829e;
+    box-shadow: 0 20px 40px rgba(40, 130, 158, 0.2);
+}
+
+.member-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 25px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #28829e;
+    transition: all 0.3s ease;
+}
+
+.member-card:hover .member-image {
+    border-color: #4fb3d1;
+    transform: scale(1.05);
+}
+
+.member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.member-card:hover .member-image img {
+    transform: scale(1.1);
+}
+
+.member-info h3 {
+    font-size: 1.4em;
+    margin: 0 0 8px 0;
+    color: #ffffff;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.member-card:hover .member-info h3 {
+    color: #28829e;
+}
+
+.member-role {
+    font-size: 1em;
+    color: #888;
+    margin-bottom: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9em;
+}
+
+.member-description {
+    font-size: 0.95em;
+    color: #aaa;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.member-card:hover .member-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+@media (max-width: 768px) {
+    .meetteam {
+        padding: 40px 20px;
+        margin-top: 50px;
+    }
+    
+    .meetteam h2 {
+        font-size: 2.2em;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .member-card {
+        padding: 25px 20px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -24,6 +319,72 @@
     <a href="Login">Login</a>
   </nav>
 </div>
+    <div class="top">
+        <div class="textarea">
+            <p class="logofont" style="font-size: 4em; margin-bottom:.6em;line-height: 0;">DigiteX</p>
+            <p>Independent tech news at your fingertips</p>
+            <button>Explore Articles</button>
+        </div>
+    </div>
+    <div class="meetteam">
+    <h2>Meet the Team</h2>
+    <p>We are a passionate group of tech enthusiasts dedicated to bringing you the latest in technology news, reviews, and insights. Our team combines expertise in various fields to provide comprehensive coverage of the tech world.</p>
     
+    <div class="team-grid">
+        <div class="member-card">
+            <div class="member-image">
+                <img src="login.jpg" alt="Jane Doe">
+            </div>
+            <div class="member-info">
+                <h3>Anuraag Vombatkere</h3>
+                <div class="member-role">President</div>
+                <div class="member-description">Anuraag loves AI and machine learning and founded Digitex to share breakthroughs, build projects, and bring curious minds together across fields.</div>
+                
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-image">
+                <img src="bg.jpg" alt="John Smith">
+            </div>
+            <div class="member-info">
+                <h3>Vasipalli Eshan Aditya</h3>
+                <div class="member-role">Vice President</div>
+                <div class="member-description">Working with Tech & Hardware for 6 years, Eshan is passionate about building innovative solutions and exploring the latest trends in technology.</div>
+                
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-image">
+                <img src="login.jpg" alt="Emily Johnson">
+            </div>
+            <div class="member-info">
+                <h3>John Boe</h3>
+                <div class="member-role">AI Geek</div>
+                <div class="member-description">Built Different</div>
+                
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-image">
+                <img src="login.jpg" alt="Michael Brown">
+            </div>
+            <div class="member-info">
+                <h3>Michael Black</h3>
+                <div class="member-role">Business Strategist</div>
+                <div class="member-description">Also a Crypto Bro</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <footer>
+    <hr style="margin-top: 50px; border: 1px solid #333;">
+    <p style="text-align: center; color: #888; font-size: 0.9em; margin-top: 20px;margin-bottom: 0;">&copy; 2024 DigiteX. All rights reserved.</p>
+    <p style="text-align: center; color: #888; font-size: 0.7em; margin-top: 5px;">Developed by Vasipalli Eshan Aditya, Maintained by DigiteX</p>
+    </footer>
 </body>
 </html>

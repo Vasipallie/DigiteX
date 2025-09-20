@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            background: #f6f8fa;
+            font-family: 'Segoe UI', 'Liberation Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .blog-post {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(27,31,35,0.04);
+            padding: 40px 48px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: #24292f;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 0.3em;
+        }
+        .blog-content {
+            color: #24292f;
+            line-height: 1.7;
+            font-size: 1.1em;
+        }
+        .blog-content pre {
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 0.97em;
+        }
+        .blog-content code {
+            background: #f6f8fa;
+            border-radius: 6px;
+            padding: 0.2em 0.4em;
+            font-size: 0.97em;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+        }
+        .blog-content blockquote {
+            border-left: 4px solid #d0d7de;
+            color: #6a737d;
+            padding: 0.5em 1em;
+            background: #f6f8fa;
+            margin: 1em 0;
+        }
+        .blog-content ul, .blog-content ol {
+            padding-left: 2em;
+            margin: 1em 0;
+        }
+        .blog-content a {
+            color: #0969da;
+            text-decoration: none;
+        }
+        .blog-content a:hover {
+            text-decoration: underline;
+        }
+        .blog-content table {
+            border-collapse: collapse;
+            margin: 1em 0;
+            width: 100%;
+        }
+        .blog-content th, .blog-content td {
+            border: 1px solid #d0d7de;
+            padding: 6px 13px;
+        }
+        .blog-content th {
+            background: #f6f8fa;
+            font-weight: 600;
+        }
+        .blog-content img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post">
+        <h1><%= title %></h1>
+        <div class="blog-content">
+            <%- content %>
+        </div>
+    </div>
+</body>
+</html>
