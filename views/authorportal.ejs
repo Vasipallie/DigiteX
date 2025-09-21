@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiteX | Home</title>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap');
+@font-face {
+    font-family: 'digitfont';
+    src: url('./digifont.ttf') format('truetype');
+}
+html {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 100;
+    font-size: 1.2em;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+}
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 240px;
+    background: linear-gradient(160deg, #181c22 60%, #222831 100%);
+    padding: 32px 0 24px 0;
+    box-sizing: border-box;
+    border-right: 1.5px solid #222b;
+    border-radius: 0 30px 30px 0;
+    min-height: 100vh;
+    box-shadow: 2px 0 16px 0 #0006;
+    gap: 36px;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.logo img {
+    height: 60px;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 2px 8px #0008);
+}
+.logofont {
+    font-family: 'digitfont', sans-serif;
+    font-size: 2em;
+    color: #fff;
+    user-select: none;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 0 2px 8px #0006;
+}
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: stretch;
+    margin-top: 10px;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #b3e5fc;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.13em;
+    padding: 12px 0 12px 32px;
+    border-left: 4px solid transparent;
+    border-radius: 8px 0 0 8px;
+    background: none;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    box-sizing: border-box;
+    position: relative;
+}
+.nav-link:hover,
+.nav-link:focus {
+    border-left-color: #28829e;
+    color: #fff;
+    background: #232b3b;
+}
+.nav-link.active {
+    border-left-color: #28829e;
+    color: #fff;
+    font-weight: 600;
+    background: #232b3b;
+}
+.nav-link .icon {
+    font-size: 1.2em;
+    width: 1.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+}
+@media (max-width: 900px) {
+    .sidebar { width: 70px; min-width: 60px; padding: 10px 0; }
+    .logo img { height: 40px; }
+    .logofont { font-size: 1em; }
+    .nav-link { font-size: 0.9em; padding: 8px 0 8px 10px; gap: 6px; }
+    .nav-link .icon { width: 1em; }
+}
+.top{
+    width: 100%;
+    height: 70vh;
+    background: url('bg.jpg');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border-bottom: 2px solid #abe1f1;
+    padding:30px;
+    padding-top:50px;
+}
+
+button {
+    background-color: #28829e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textarea{
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.5);
+    width: fit-content ;
+    padding: 30px;
+    border-radius: 20px;
+}
+footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+}
+.main{
+    padding: 20px;
+    width: 100%;
+}
+hr{
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+        <div class="sidebar">
+            <div class="logo" onclick="location.href='/'">
+                <img src="/logo.png" alt="DigiteX Logo">
+                <span class="logofont">DigiteX</span>
+            </div>
+            <nav class="nav-links" role="navigation" aria-label="Primary">
+                <a href="authorportal" class="nav-link active"><span class="icon">🏠</span>Dashboard</a>
+                <a href="New" class="nav-link"><span class="icon">📝</span>New Post</a>
+                <a href="FileMan" class="nav-link"><span class="icon">📁</span>File Manager</a>
+            </nav>
+        </div>
+        <div class="main">
+            <p>Welcome Back,</p>
+            <p class="logofont" style="font-size: 4em; margin-block:0.6em;line-height: 0;"><%= locals.name %></p>
+            <hr>
+            <div class="articles">
+
+
+            </div>
+        </div>
+</body>
+</html>
