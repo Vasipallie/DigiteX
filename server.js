@@ -9,10 +9,20 @@ import cron from 'node-cron';
 import { Console, time } from 'console';
 import dotenv from 'dotenv'; 
 
+dotenv.config();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const supalink = process.env.SUPALINK ;
+const supakey = process.env.SUPAKEY ;
+
+
+// Supabase setup
+//WARNING - DO NOT PUBLISH Api Keys VIA GITHUB OR ANY PUBLIC REPOSITORY
+const supabase = createClient(supalink, supakey); 
+
 
 // Middleware data stuff, important for app to run
 app.set('view engine', 'ejs');
@@ -37,7 +47,7 @@ app.route('/New').get((req, res) => {
     res.render('blogwrite');
 });
 
-app.post('/submit-article', (req, res) => {
+app.post('/submit-article', async (req, res) => {
     try {
         console.log('Received article:', req.body);
         
@@ -48,7 +58,17 @@ app.post('/submit-article', (req, res) => {
             });
         }
         const { title, html, department, timestamp, wordCount } = req.body;
-        
+        let { data, error } = await supabase
+            .from('Articles')
+            .insert([
+                {
+                    title,
+                    html: html,
+                    department,
+
+                }
+            ]);
+            console.log('Supabase insert response:', { data, error });
         console.log('Parsed data:', {
             title,
             department,
@@ -65,13 +85,7 @@ app.post('/submit-article', (req, res) => {
         
         res.json({ 
             success: true, 
-            message: 'Article submitted successfully',
-            data: {
-                title,
-                department,
-                wordCount,
-                timestamp
-            }
+            message: 'Article submitted successfully'
         });
         
     } catch (error) {
@@ -83,6 +97,48 @@ app.post('/submit-article', (req, res) => {
     }
 });
 
+app.route('/articles').get(async (req, res) => {
+    try {
+        const { data: articles, error } = await supabase
+            .from('Articles')
+            .select('*')
+            .eq('id', 3);
+        
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).render('blogdisplay', { 
+                content: '<p>Error loading article</p>',
+                title: 'Error',
+                dept: 'SYSTEM'
+            });
+        }
+        
+        if (!articles || articles.length === 0) {
+            return res.status(404).render('blogdisplay', { 
+                content: '<p>Article not found</p>',
+                title: 'Not Found',
+                dept: 'SYSTEM'
+            });
+        }
+        
+        const article = articles[0];
+        console.log('Article data:', article);
+        
+        res.render('blogdisplay', { 
+            content: article.html ,
+            title: article.title ,
+            dept: article.department
+        });
+        
+    } catch (error) {
+        console.error('Error fetching article:', error);
+        res.status(500).render('blogdisplay', { 
+            content: '<p>Server error occurred</p>',
+            title: 'Error',
+            dept: 'SYSTEM'
+        });
+    }
+});
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
 });
