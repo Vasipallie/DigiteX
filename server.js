@@ -82,12 +82,21 @@ app.route('/authorportal').get(async (req, res) => {
             return res.status(500).redirect('/login');
         }
 
-        // Fetch articles by user's department
-        const { data: articles, error: articlesError } = await supabase
+        console.log(userData.dept)
+        var articles, articlesError;
+        if (userData.dept === 'SUDO') {
+            console.log('User is SUDO, fetching all articles');
+            var { data: articles, error: articlesError } = await supabase
+                .from('Articles')
+                .select('*')
+                .order('id', { ascending: false });
+        }else{
+         var { data: articles, error: articlesError } = await supabase
             .from('Articles')
             .select('*')
             .eq('department', userData.dept)
             .order('id', { ascending: false });
+        }
         console.log('Articles fetched for department:', userData.dept, articles);
         if (articlesError) {
             console.error('Error fetching articles:', articlesError);
@@ -154,6 +163,7 @@ app.route('/authorportal').get(async (req, res) => {
         console.error('Error in authorportal route:', error);
         res.status(500).redirect('/login');
     }
+
 });
 
 app.route('/New').get((req, res) => {
