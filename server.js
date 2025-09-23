@@ -72,7 +72,7 @@ app.route('/authorportal').get(async (req, res) => {
         console.log('Fetching user data for UID:'+user.id);
         const { data: userData, error } = await supabase
             .from('Users')
-            .select('name')
+            .select('*')
             .eq('id', user.id)
             .single();
             console.log('User data fetched:', userData);
@@ -82,7 +82,74 @@ app.route('/authorportal').get(async (req, res) => {
             return res.status(500).redirect('/login');
         }
 
-        res.render('authorportal', { name: userData?.name || 'User' });
+        // Fetch articles by user's department
+        const { data: articles, error: articlesError } = await supabase
+            .from('Articles')
+            .select('*')
+            .eq('department', userData.dept)
+            .order('id', { ascending: false });
+        console.log('Articles fetched for department:', userData.dept, articles);
+        if (articlesError) {
+            console.error('Error fetching articles:', articlesError);
+            return res.status(500).render('authorportal', { 
+                name: userData?.name || 'User',
+                articles: '<p>Error loading articles</p>'
+            });
+        }
+
+        let articlesHTML = '';
+        if (articles && articles.length > 0) {
+            articles.forEach(article => {
+                const excerpt = article.html.replace(/<[^>]+>/g, '').substring(0, 150) + '...';
+                const wordCount = article.html.split(' ').length;
+                const readTime = Math.max(1, Math.ceil(wordCount / 150));
+                
+                // Debug: Log the actual Visible value
+                console.log(`Article ${article.id}: Visible = "${article.Visible}" (type: ${typeof article.Visible})`);
+                
+                // Comprehensive visibility check - handle all possible database formats
+                let isVisible = false;
+                if (article.Visible === 'TRUE' || 
+                    article.Visible === 'true' || 
+                    article.Visible === true || 
+                    article.Visible === 1 || 
+                    article.Visible === '1') {
+                    isVisible = true;
+                } else if (article.Visible === null || article.Visible === undefined) {
+                    // Default to false (draft) for null/undefined values
+                    isVisible = false;
+                }
+                
+                console.log(`Article ${article.id}: isVisible = ${isVisible}`);
+                
+                articlesHTML += `
+                <div class="article-card" data-id="${article.id}">
+                    <div class="article-header">
+                        <span class="article-status ${isVisible ? 'visible' : 'hidden'}">${isVisible ? 'PUBLISHED' : 'DRAFT'}</span>
+                        <div class="article-actions">
+                            <button class="toggle-btn ${isVisible ? 'unpublish-btn' : 'publish-btn'}" onclick="toggleVisibility(${article.id}, ${isVisible})">
+                                ${isVisible ? 'Unpublish' : 'Publish'}
+                            </button>
+                            <button class="delete-btn" onclick="deleteArticle(${article.id})">Delete</button>
+                        </div>
+                    </div>
+                    <h3 class="article-title">${article.title}</h3>
+                    <p class="article-excerpt">${excerpt}</p>
+                    <div class="article-meta">
+                        <span class="article-date">${new Date(article.timestamp).toLocaleDateString()}</span>
+                        <span class="article-read-time">${readTime} min read</span>
+                        <a href="/article/${article.id}" class="view-link" target="_blank">View Article</a>
+                    </div>
+                </div>`;
+            });
+        } else {
+            articlesHTML = '<div class="no-articles"><p>No articles found for your department.</p><a href="/New" class="create-first-btn">Create your first article</a></div>';
+        }
+
+        res.render('authorportal', { 
+            name: userData?.name || 'User',
+            articles: articlesHTML
+        });
     } catch (error) {
         console.error('Error in authorportal route:', error);
         res.status(500).redirect('/login');
@@ -103,7 +170,7 @@ app.post('/submit-article', async (req, res) => {
                 message: 'No data received' 
             });
         }
-        const { title, html, department, timestamp, wordCount } = req.body;
+        const { title, html, department } = req.body;
         let { data, error } = await supabase
             .from('Articles')
             .insert([
@@ -111,17 +178,10 @@ app.post('/submit-article', async (req, res) => {
                     title,
                     html: html,
                     department,
-
+                    Visible: 'FALSE'  // Default to draft/hidden
                 }
             ]);
             console.log('Supabase insert response:', { data, error });
-        console.log('Parsed data:', {
-            title,
-            department,
-            wordCount,
-            timestamp,
-            htmlLength: html ? html.length : 0
-        });
         if (!title || !html || !department) {
             return res.status(400).json({ 
                 success: false, 
@@ -194,6 +254,7 @@ app.route('/blog').get(async (req, res) => {
     let { data: Articles, error } = await supabase
         .from('Articles')
         .select('*')
+        .eq('Visible','TRUE')
         .order('id', { ascending: false });
     if (error) {
         console.error('Supabase error:', error);
@@ -220,6 +281,78 @@ app.route('/blog').get(async (req, res) => {
 
     res.render('blog', { articles: Articles.map(article => article.bloghtml).join('') });
 });
+
+// Toggle article visibility
+app.post('/toggle-visibility/:id', async (req, res) => {
+    try {
+        const session = req.cookies.session;
+        if (!session) {
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+
+        const { data: { user } } = await supabase.auth.getUser(session.access_token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid session' });
+        }
+
+        const { id } = req.params;
+        const { visible } = req.body;
+
+        console.log(`Toggle visibility for article ${id}: visible = ${visible} (type: ${typeof visible})`);
+
+        const newVisibleValue = visible ? 'TRUE' : 'FALSE';
+        console.log(`Setting Visible to: ${newVisibleValue}`);
+
+        const { data, error } = await supabase
+            .from('Articles')
+            .update({ Visible: newVisibleValue })
+            .eq('id', id);
+
+        if (error) {
+            console.error('Error toggling visibility:', error);
+            return res.status(500).json({ success: false, message: 'Database error' });
+        }
+
+        console.log('Visibility update successful:', data);
+        res.json({ success: true, message: 'Visibility updated successfully' });
+    } catch (error) {
+        console.error('Error in toggle visibility:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// Delete article
+app.delete('/delete-article/:id', async (req, res) => {
+    try {
+        const session = req.cookies.session;
+        if (!session) {
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+
+        const { data: { user } } = await supabase.auth.getUser(session.access_token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid session' });
+        }
+
+        const { id } = req.params;
+
+        const { data, error } = await supabase
+            .from('Articles')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Error deleting article:', error);
+            return res.status(500).json({ success: false, message: 'Database error' });
+        }
+
+        res.json({ success: true, message: 'Article deleted successfully' });
+    } catch (error) {
+        console.error('Error in delete article:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
-});
+}); 

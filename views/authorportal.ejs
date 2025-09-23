@@ -155,6 +155,284 @@ footer{
 hr{
     width: 100%;
 }
+
+/* Article Management Styles */
+.articles {
+    margin-top: 30px;
+}
+
+.article-card {
+    background-color: #161616;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 20px;
+    cursor: default;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.article-card:hover {
+    border-color: #28829e;
+    background-color: #1a1a1a;
+}
+
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.article-status {
+    padding: 6px 14px;
+    border-radius: 0;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid;
+}
+
+.article-status.visible {
+    background: transparent;
+    color: #28829e;
+    border-color: #28829e;
+}
+
+.article-status.hidden {
+    background: transparent;
+    color: #888;
+    border-color: #444;
+}
+
+.article-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.toggle-btn, .delete-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.publish-btn {
+    background-color: #28829e;
+    color: white;
+}
+
+.publish-btn:hover {
+    background-color: #218ca8;
+    box-shadow: 0 4px 15px rgba(40, 130, 158, 0.3);
+    transform: translateY(-1px);
+}
+
+.unpublish-btn {
+    background-color: #888;
+    color: white;
+}
+
+.unpublish-btn:hover {
+    background-color: #777;
+    box-shadow: 0 4px 15px rgba(136, 136, 136, 0.3);
+    transform: translateY(-1px);
+}
+
+.delete-btn {
+    background-color: #444;
+    color: #ccc;
+}
+
+.delete-btn:hover {
+    background-color: #555;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(68, 68, 68, 0.3);
+    transform: translateY(-1px);
+}
+
+.article-title {
+    color: #ffffff;
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    line-height: 1.3;
+}
+
+.article-excerpt {
+    color: #ccc;
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #888;
+    font-size: 0.8em;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.article-date, .article-read-time {
+    color: #888;
+}
+
+.view-link {
+    color: #28829e;
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.view-link:hover {
+    border-bottom-color: #28829e;
+    color: #fff;
+}
+
+.no-articles {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #161616;
+    border: 2px dashed #333;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.no-articles p {
+    font-size: 1.2em;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.create-first-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #28829e;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.create-first-btn:hover {
+    background-color: #218ca8;
+    box-shadow: 0 4px 15px rgba(40, 130, 158, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #161616;
+    margin: 15% auto;
+    padding: 40px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.modal h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.modal p {
+    color: #ccc;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.confirm-btn, .cancel-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.confirm-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    background-color: #444;
+    color: #ccc;
+}
+
+.cancel-btn:hover {
+    background-color: #555;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(68, 68, 68, 0.3);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .article-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .article-actions {
+        justify-content: center;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .modal-content {
+        margin: 25% auto;
+        padding: 30px 20px;
+    }
+    
+    .toggle-btn, .delete-btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
     </style>
 </head>
 <body>
@@ -173,9 +451,120 @@ hr{
             <p class="logofont" style="font-size: 4em; margin-block:0.6em;line-height: 0;"><%= locals.name %></p>
             <hr>
             <div class="articles">
-
+                <%- articles %>
 
             </div>
         </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <h3>⚠️ Confirm Deletion</h3>
+                <p>Are you sure you want to permanently delete this article? This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <button class="confirm-btn" onclick="confirmDelete()">Delete</button>
+                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let articleToDelete = null;
+
+            function toggleVisibility(articleId, currentlyVisible) {
+                const button = event.target;
+                const originalText = button.textContent;
+                
+                button.disabled = true;
+                button.textContent = 'Loading...';
+
+                fetch(`/toggle-visibility/${articleId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ visible: !currentlyVisible })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the page to reflect changes
+                        location.reload();
+                    } else {
+                        alert('Error updating visibility: ' + data.message);
+                        button.disabled = false;
+                        button.textContent = originalText;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Network error occurred');
+                    button.disabled = false;
+                    button.textContent = originalText;
+                });
+            }
+
+            function deleteArticle(articleId) {
+                articleToDelete = articleId;
+                document.getElementById('deleteModal').style.display = 'block';
+            }
+
+            function confirmDelete() {
+                if (!articleToDelete) return;
+
+                fetch(`/delete-article/${articleToDelete}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove the article card from the page
+                        const articleCard = document.querySelector(`[data-id="${articleToDelete}"]`);
+                        if (articleCard) {
+                            articleCard.style.opacity = '0';
+                            articleCard.style.transform = 'translateY(-20px)';
+                            setTimeout(() => {
+                                articleCard.remove();
+                                // Check if there are no more articles
+                                const remainingArticles = document.querySelectorAll('.article-card');
+                                if (remainingArticles.length === 0) {
+                                    location.reload(); // Reload to show "no articles" message
+                                }
+                            }, 300);
+                        }
+                        closeModal();
+                    } else {
+                        alert('Error deleting article: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Network error occurred');
+                });
+            }
+
+            function closeModal() {
+                document.getElementById('deleteModal').style.display = 'none';
+                articleToDelete = null;
+            }
+
+            // Close modal when clicking outside of it
+            window.onclick = function(event) {
+                const modal = document.getElementById('deleteModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            }
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        </script>
 </body>
 </html>
