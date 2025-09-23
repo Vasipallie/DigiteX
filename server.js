@@ -112,11 +112,8 @@ app.route('/authorportal').get(async (req, res) => {
                 const excerpt = article.html.replace(/<[^>]+>/g, '').substring(0, 150) + '...';
                 const wordCount = article.html.split(' ').length;
                 const readTime = Math.max(1, Math.ceil(wordCount / 150));
-                
-                // Debug: Log the actual Visible value
                 console.log(`Article ${article.id}: Visible = "${article.Visible}" (type: ${typeof article.Visible})`);
                 
-                // Comprehensive visibility check - handle all possible database formats
                 let isVisible = false;
                 if (article.Visible === 'TRUE' || 
                     article.Visible === 'true' || 
@@ -125,7 +122,6 @@ app.route('/authorportal').get(async (req, res) => {
                     article.Visible === '1') {
                     isVisible = true;
                 } else if (article.Visible === null || article.Visible === undefined) {
-                    // Default to false (draft) for null/undefined values
                     isVisible = false;
                 }
                 
@@ -188,7 +184,7 @@ app.post('/submit-article', async (req, res) => {
                     title,
                     html: html,
                     department,
-                    Visible: 'FALSE'  // Default to draft/hidden
+                    Visible: 'FALSE'  
                 }
             ]);
             console.log('Supabase insert response:', { data, error });
