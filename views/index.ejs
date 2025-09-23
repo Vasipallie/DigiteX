@@ -174,12 +174,51 @@ footer{
 }
 
 .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
     margin-top: 40px;
     position: relative;
     z-index: 1;
+}
+
+.department-section {
+    width: 100%;
+}
+
+.department-title {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #28829e;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.department-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #28829e, #4fb3d1);
+    border-radius: 2px;
+}
+
+.leadership-grid, .dept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+.leadership-grid {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .member-card {
@@ -317,27 +356,126 @@ footer{
     <p>We are a passionate group of tech enthusiasts dedicated to bringing you the latest in technology news, reviews, and insights. Our team combines expertise in various fields to provide comprehensive coverage of the tech world.</p>
     
     <div class="team-grid">
-        <div class="member-card">
-            <div class="member-image">
-                <img src="anurag.jpg" alt="Anuraag Vombatkere">
-            </div>
-            <div class="member-info">
-                <h3>Anuraag Vombatkere</h3>
-                <div class="member-role">President</div>
-                <div class="member-description">Anuraag loves AI and machine learning and founded Digitex to share breakthroughs, build projects, and bring curious minds together across fields.</div>
-                
+        <!-- Leadership Section -->
+        <div class="department-section">
+            <h3 class="department-title">Leadership</h3>
+            <div class="leadership-grid">
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="anurag.jpg" alt="Anuraag Vombatkere">
+                    </div>
+                    <div class="member-info">
+                        <h3>Anuraag Vombatkere</h3>
+                        <div class="member-role">President</div>
+                        <div class="member-description">Anuraag loves AI and machine learning and founded Digitex to share breakthroughs, build projects, and bring curious minds together across fields.</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="vasi.jpg" alt="Vasipalli Eshan Aditya">
+                    </div>
+                    <div class="member-info">
+                        <h3>Vasipalli Eshan Aditya</h3>
+                        <div class="member-role">Vice President</div>
+                        <div class="member-description">Working with Tech & Hardware for 6 years, Eshan is passionate about building innovative solutions and exploring the latest trends in technology.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="member-card">
-            <div class="member-image">
-                <img src="bg.jpg" alt="Vasipalli Eshan Aditya">
-            </div>
-            <div class="member-info">
-                <h3>Vasipalli Eshan Aditya</h3>
-                <div class="member-role">Vice President</div>
-                <div class="member-description">Working with Tech & Hardware for 6 years, Eshan is passionate about building innovative solutions and exploring the latest trends in technology.</div>
+        <!-- Department of Medicine -->
+        <div class="department-section">
+            <h3 class="department-title">Department of Medicine</h3>
+            <div class="dept-grid">
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Nameh Singh Gulati">
+                    </div>
+                    <div class="member-info">
+                        <h3>Nameh Singh Gulati</h3>
+                        <div class="member-role">Medicine Specialist</div>
+                        <div class="member-description">Focused on medical technology innovations and healthcare advancements.</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Iraj Gupta">
+                    </div>
+                    <div class="member-info">
+                        <h3>Iraj Gupta</h3>
+                        <div class="member-role">Medicine Specialist</div>
+                        <div class="member-description">Exploring the intersection of medicine and cutting-edge technology.</div>
+                    </div>
+                </div>
                 
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Disha Rout">
+                    </div>
+                    <div class="member-info">
+                        <h3>Disha Rout</h3>
+                        <div class="member-role">Medicine Specialist</div>
+                        <div class="member-description">Passionate about medical research and healthcare technology solutions.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department of Business -->
+        <div class="department-section">
+            <h3 class="department-title">Department of Business</h3>
+            <div class="dept-grid">
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Purvaa Prakash">
+                    </div>
+                    <div class="member-info">
+                        <h3>Purvaa Prakash</h3>
+                        <div class="member-role">Business Analyst</div>
+                        <div class="member-description">Analyzing business trends and technology's impact on modern enterprises.</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Madhav Sikri">
+                    </div>
+                    <div class="member-info">
+                        <h3>Madhav Sikri</h3>
+                        <div class="member-role">Business Strategist</div>
+                        <div class="member-description">Specializing in tech business strategies and market analysis.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department of AI -->
+        <div class="department-section">
+            <h3 class="department-title">Department of Artificial Intelligence</h3>
+            <div class="dept-grid">
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Raahi Chheda">
+                    </div>
+                    <div class="member-info">
+                        <h3>Raahi Chheda</h3>
+                        <div class="member-role">AI Research Specialist</div>
+                        <div class="member-description">Researching the latest developments in artificial intelligence and machine learning.</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="bg.jpg" alt="Duaa Sherief">
+                    </div>
+                    <div class="member-info">
+                        <h3>Duaa Sherief</h3>
+                        <div class="member-role">AI Technology Writer</div>
+                        <div class="member-description">Covering AI breakthroughs and their practical applications in various industries.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
