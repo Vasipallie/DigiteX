@@ -25,6 +25,36 @@
       align-items: center;
       justify-content: center;
       color: #ffffff;
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(73, 113, 237, 0.3);
+      border-radius: 8px;
+      color: #ffffff;
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .back-button:hover {
+      background: rgba(73, 113, 237, 0.2);
+      transform: translateX(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .back-button::before {
+      content: "←";
+      font-size: 1.2em;
     }
 
     .digifont {
@@ -122,10 +152,18 @@
       .digifont {
         font-size: 1.6em;
       }
+      .back-button {
+        top: 15px;
+        left: 15px;
+        padding: 8px 12px;
+        font-size: 0.8em;
+      }
     }
   </style>
 </head>
 <body>
+  <a href="javascript:history.back()" class="back-button">Back</a>
+  
   <div class="login-container">
     <img src="logo.png" alt="DigiteX Logo"><br>
     <span class="digifont">DigiteX Passport</span>

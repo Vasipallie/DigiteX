@@ -38,7 +38,7 @@ app.route('/').get((req, res) => {
 app.route('/login').get((req, res) => {
     res.render('login', { error: null });
 });
-
+//change the name here to display programatically
 app.route('/authorportal').get((req, res) => {
     res.render('authorportal', { name: 'James Don'});
 });
@@ -97,13 +97,14 @@ app.post('/submit-article', async (req, res) => {
     }
 });
 
-app.route('/articles').get(async (req, res) => {
+app.route('/article/:id').get(async (req, res) => {
     try {
+        const { id } = req.params;
         const { data: articles, error } = await supabase
             .from('Articles')
             .select('*')
-            .eq('id', 3);
-        
+            .eq('id', id);
+
         if (error) {
             console.error('Supabase error:', error);
             return res.status(500).render('blogdisplay', { 
@@ -123,11 +124,14 @@ app.route('/articles').get(async (req, res) => {
         
         const article = articles[0];
         console.log('Article data:', article);
-        
+        // calculate word count and read time
+        article.word_count = article.html.split(' ').length;
+        article.read_time = Math.max(1, Math.ceil(article.word_count / 150));
         res.render('blogdisplay', { 
             content: article.html ,
             title: article.title ,
-            dept: article.department
+            dept: article.department,
+            read: article.read_time
         });
         
     } catch (error) {
@@ -138,6 +142,37 @@ app.route('/articles').get(async (req, res) => {
             dept: 'SYSTEM'
         });
     }
+});
+
+app.route('/blog').get(async (req, res) => {
+    let { data: Articles, error } = await supabase
+        .from('Articles')
+        .select('*')
+        .order('id', { ascending: false });
+    if (error) {
+        console.error('Supabase error:', error);
+        return res.status(500).send('Error loading articles');
+    }
+    console.log('Fetched articles:', Articles);
+    //good article display html
+    //clean the html content and shorten it to 200 characters for excerpt, and calculate read time based on word count
+    Articles.forEach(article => {
+        article.word_count = article.html.split(' ').length;
+        article.read_time = Math.max(1, Math.ceil(article.word_count / 150)); 
+        article.excerpt = article.html.replace(/<[^>]+>/g, '').substring(0, 200) + '... Read More';
+        article.html = ''; 
+        article.bloghtml = `<article class="article" onclick="location.href='/article/${article.id}'" data-category="${article.department.toLowerCase()}">
+                <div class="article-category">${article.department}</div>
+                <h2 class="article-title">${article.title}</h2>
+                <p class="article-excerpt">${article.excerpt}</p>
+                <div class="article-meta">
+                    <span class="article-date">${new Date(article.timestamp).toLocaleDateString()}</span>
+                    <span class="article-read-time">${article.read_time} min read</span>
+                </div>
+            </article>`;
+    });
+
+    res.render('blog', { articles: Articles.map(article => article.bloghtml).join('') });
 });
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');

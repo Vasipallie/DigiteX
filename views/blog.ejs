@@ -3,100 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>base</title>
+    <title>DigiteX Blog</title>
     <style>
-        @font-face{
-    font-family: 'digitfont';
-    src: url('./digifont.ttf') format('truetype');
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+        
+        @font-face {
+            font-family: 'digitfont';
+            src: url('./digifont.ttf') format('truetype');
+        }
 
-}html {
-  background-color: #000000;
-  margin: 0;
-  padding: 15px;
-  color: #ffffff;
-  font-family: "Be Vietnam Pro", sans-serif;
-  font-weight: 100;
-  font-size: 1.2em;
-}
+        html {
+            background-color: #000000;
+            margin: 0;
+            padding: 15px;
+            color: #ffffff;
+            font-family: "Be Vietnam Pro", sans-serif;
+            font-weight: 100;
+            font-size: 1.2em;
+        }
 
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  background-color: #161616;
-  padding: 0 20px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #333;
-  border-radius: 100px;
-}
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 50px;
+            background-color: #161616;
+            padding: 0 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #333;
+            border-radius: 100px;
+        }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+        }
 
-.logo img {
-  height: 90px;
-  margin-right: 10px;
-}
+        .logo img {
+            height: 90px;
+            margin-right: 10px;
+        }
 
-.logofont {
-  font-family: 'digitfont', sans-serif;
-  font-size: 1.8em;
-  color: #ffffff;
-  user-select: none;
-  letter-spacing: 1px;
-}
+        .logofont {
+            font-family: 'digitfont', sans-serif;
+            font-size: 1.8em;
+            color: #ffffff;
+            user-select: none;
+            letter-spacing: 1px;
+        }
 
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
 
-.nav-links a {
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
 
-.nav-links a:hover,
-.nav-links a:focus {
-  border-bottom-color: #ff7f50; 
-  color: #fff;
-}
+        .nav-links a:hover,
+        .nav-links a:focus {
+            border-bottom-color: #2e79ac;
+            color: #fff;
+        }
 
-.nav-links a.active {
-  border-bottom-color: #ff7f50;
-  color: #fff;
-  font-weight: 600;
-}
+        .nav-links a.active {
+            border-bottom-color: #2e79ac;
+            color: #fff;
+            font-weight: 600;
+        }
 
-@media (max-width: 768px) {
-  .nav-links {
-    display: none; 
-  }
-}
-        </style>
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .main {
+            width: auto;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            font-weight: 400;
+            margin: 0 0 40px 0;
+            color: #33d2e4;
+            line-height: 1.1;
+            font-style: italic;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .articles-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article {
+            background-color: #161616;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .article:hover {
+            border-color: #2e79ac;
+            background-color: #1a1a1a;
+        }
+
+        .article-category {
+            color: #33d2e4;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            color: #ffffff;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .article-excerpt {
+            color: #ccc;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        .article-date {
+            color: #888;
+        }
+
+        .article-read-time {
+            color: #33d2e4;
+        }
+
+        /* Simple filter tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+        }
+
+        .filter-tab {
+            background: none;
+            border: none;
+            color: #888;
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .filter-tab:hover {
+            color: #ccc;
+        }
+
+        .filter-tab.active {
+            color: #33d2e4;
+            border-bottom-color: #33d2e4;
+        }
+
+        @media (max-width: 768px) {
+            .main {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .article {
+                padding: 20px;
+            }
+            
+            .filter-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .filter-tab {
+                padding: 12px 20px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
 </head>
 <body>
-        <div class="nav">
-  <div class="logo" onclick="location.href='/'" style="cursor: pointer;">
-    <img src="/logo.png" alt="DigiteX Logo">
-    <span class="logofont">DigiteX</span>
-  </div>
-  <nav class="nav-links" role="navigation" aria-label="Primary">
-    <a href="/" class="active">Home</a>
-    <a href="Blog">Blog</a>
-    <a href="AI">AI</a>
-    <a href="Business">Business</a>
-    <a href="Medicine">Medicine</a>
-    <a href="Login">Login</a>
-    </nav>
+    <div class="nav">
+        <div class="logo" onclick="location.href='/'" style="cursor: pointer;">
+            <img src="/logo.png" alt="DigiteX Logo">
+            <span class="logofont">DigiteX</span>
+        </div>
+        <nav class="nav-links" role="navigation" aria-label="Primary">
+            <a href="/">Home</a>
+            <a href="Blog" class="active">Blog</a>
+            <a href="Login">Login</a>
+        </nav>
+    </div>
+
+    <div class="main">
+        <h1>DigiteX Blog</h1>
+        
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-category="all">All Articles</button>
+            <button class="filter-tab" data-category="artificial intelligence">AI</button>
+            <button class="filter-tab" data-category="business">Business</button>
+            <button class="filter-tab" data-category="medicine">Medicine</button>
+        </div>
+
+        <div class="articles-list">
+          <%- articles %>
+        </div>
+    </div>
+
+    <script>
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const articles = document.querySelectorAll('.article');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                
+                articles.forEach(article => {
+                    if (category === 'all' || article.dataset.category === category) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        articles.forEach(article => {
+            article.addEventListener('click', () => {
+                const title = article.querySelector('.article-title').textContent;
+                console.log('Navigate to article:', title);
+            });
+        });
+    </script>
 </body>
 </html>

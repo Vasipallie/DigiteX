@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
         @font-face{
             font-family: 'digitfont';
-            src: url('./digifont.ttf') format('truetype');
+            src: url('/digifont.ttf') format('truetype');
         }
 
         html {
@@ -69,12 +69,12 @@
 
         .nav-links a:hover,
         .nav-links a:focus {
-            border-bottom-color: #ff7f50; 
+            border-bottom-color: #2e79ac; 
             color: #fff;
         }
 
         .nav-links a.active {
-            border-bottom-color: #ff7f50;
+            border-bottom-color: #2e79ac;
             color: #fff;
             font-weight: 600;
         }
@@ -150,7 +150,7 @@
 
         .tag {
             background: transparent;
-            color: #999;
+            color: #827e7e;
             padding: 6px 14px;
             border-radius: 0;
             font-size: 0.8em;
@@ -164,7 +164,7 @@
             font-size: 3.2em;
             font-weight: 400;
             margin: 0;
-            color: #d4af37;
+            color: #33d2e4;
             line-height: 1.1;
             font-style: italic;
             font-family: 'Times New Roman', serif;
@@ -245,13 +245,13 @@
             float: left;
             line-height: 0.8;
             margin: 5px 12px 0 0;
-            color: #d4af37;
+            color: #2e79ac;
             font-family: 'Times New Roman', serif;
         }
 
         .section-title {
             font-size: 1.6em;
-            color: #d4af37;
+            color: #2e79ac;
             margin: 40px 0 25px 0;
             font-weight: 400;
             font-style: italic;
@@ -265,7 +265,7 @@
         .highlight {
             background: rgba(212, 175, 55, 0.08);
             padding: 20px;
-            border-left: 3px solid #d4af37;
+            border-left: 3px solid #2e79ac;
             border-radius: 0;
             margin: 25px 0;
             font-style: italic;
@@ -274,7 +274,7 @@
         }
 
         .blog-content h1, .blog-content h2, .blog-content h3 {
-            color: #d4af37;
+            color: #2e79ac;
             margin: 35px 0 18px 0;
             font-weight: 400;
             font-style: italic;
@@ -297,7 +297,7 @@
 
         .blog-content blockquote {
             background: rgba(212, 175, 55, 0.04);
-            border-left: 3px solid #d4af37;
+            border-left: 3px solid #2e79ac;
             padding: 20px;
             margin: 30px 0;
             font-style: italic;
@@ -354,14 +354,14 @@
             float: left;
             line-height: 0.75;
             margin: 8px 15px 0 0;
-            color: #d4af37;
+            color: #2e79ac;
             font-family: 'Times New Roman', serif;
         }
 
         /* Content element styling for rendered HTML */
         blockquote {
             background: rgba(212, 175, 55, 0.08);
-            border-left: 4px solid #d4af37;
+            border-left: 4px solid #2e79ac;
             padding: 20px 25px;
             margin: 30px 0;
             font-style: italic;
@@ -373,7 +373,7 @@
         blockquote::before {
             content: '"';
             font-size: 4em;
-            color: #d4af37;
+            color: #2e79ac;
             position: absolute;
             top: -10px;
             left: 15px;
@@ -384,7 +384,7 @@
         pre {
             background: #1a1a1a !important;
             border: 1px solid #333;
-            border-left: 4px solid #d4af37;
+            border-left: 4px solid #2e79ac;
             padding: 20px;
             margin: 25px 0;
             overflow-x: auto;
@@ -397,7 +397,7 @@
 
         code {
             background: #2a2a2a !important;
-            color: #d4af37 !important;
+            color: #2e79ac !important;
             padding: 3px 6px;
             border-radius: 4px;
             font-family: 'Courier New', monospace;
@@ -425,11 +425,11 @@
 
         table th {
             background: #2a2a2a !important;
-            color: #d4af37 !important;
+            color: #2e79ac !important;
             padding: 15px 12px;
             text-align: left;
             font-weight: 600;
-            border-bottom: 2px solid #d4af37;
+            border-bottom: 2px solid #2e79ac;
             font-size: 1em;
         }
 
@@ -441,7 +441,7 @@
         }
 
         table tr:hover {
-            background: rgba(212, 175, 55, 0.05) !important;
+            background: rgba(55, 133, 212, 0.05) !important;
         }
 
         table tr:last-child td {
@@ -505,11 +505,8 @@
         </div>
         <nav class="nav-links" role="navigation" aria-label="Primary">
             <a href="/">Home</a>
-            <a href="Blog" class="active">Blog</a>
-            <a href="AI">AI</a>
-            <a href="Business">Business</a>
-            <a href="Medicine">Medicine</a>
-            <a href="Login">Login</a>
+            <a href="/Blog" class="active">Blog</a>
+            <a href="/Login">Login</a>
         </nav>
     </div>
 
@@ -518,15 +515,15 @@
             <div class="header-left">
                 <div class="blog-tags">
                     <span class="tag"><%= locals.dept %></span>
-                    <span class="tag">5 MIN READ</span>
+                    <span class="tag"><%= locals.read %> MIN READ</span>
                 </div>
                 
-                <h1 class="blog-title"><%= locals.title || 'Greening the Planet:' %></h1>
+                <h1 class="blog-title"><%= locals.title %></h1>
                 </div>
             
             <div class="header-right">
                 <div class="decorative-image">
-                    <img src="bg.jpg" alt="Article illustration">
+                    <img src="/bg.jpg" alt="Article illustration">
                 </div>
             </div>
         </div>
