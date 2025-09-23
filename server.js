@@ -27,7 +27,7 @@ const supabase = createClient(supalink, supakey);
 // Middleware data stuff, important for app to run
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'views')));
-
+app.use(cookieParser()); // Add cookie parser middleware
 app.use(express.json());                        
 app.use(bodyParser.urlencoded({ extended: true })); 
 
@@ -38,9 +38,55 @@ app.route('/').get((req, res) => {
 app.route('/login').get((req, res) => {
     res.render('login', { error: null });
 });
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    //supabase builtin auth
+    supabase.auth.signInWithPassword({
+        email: username,
+        password: password
+  }) .then(({ data, error }) => {
+        if (error) {
+            console.error('Login error:', error);
+            return res.status(401).render('login', { error: 'Invalid username or password' });
+        }
+        //create session cookie for 2 days
+        res.cookie('session', data.session, { maxAge: 2 * 24 * 60 * 60 * 1000 }); // 2 days
+        res.redirect('/authorportal');
+    });
+});
 //change the name here to display programatically
-app.route('/authorportal').get((req, res) => {
-    res.render('authorportal', { name: 'James Don'});
+app.route('/authorportal').get(async (req, res) => {
+    try {
+        //get name from users database
+        const session = req.cookies.session;
+        
+        if (!session) {
+            return res.status(401).redirect('/login');
+        }
+        
+        const { data: { user } } = await supabase.auth.getUser(session.access_token);
+        
+        if (!user) {
+            return res.status(401).redirect('/login');
+        }
+        console.log('Fetching user data for UID:'+user.id);
+        const { data: userData, error } = await supabase
+            .from('Users')
+            .select('name')
+            .eq('id', user.id)
+            .single();
+            console.log('User data fetched:', userData);
+
+        if (error) {
+            console.error('Error fetching user data:', error);
+            return res.status(500).redirect('/login');
+        }
+
+        res.render('authorportal', { name: userData?.name || 'User' });
+    } catch (error) {
+        console.error('Error in authorportal route:', error);
+        res.status(500).redirect('/login');
+    }
 });
 
 app.route('/New').get((req, res) => {
