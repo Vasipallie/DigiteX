@@ -109,7 +109,9 @@ app.route('/authorportal').get(async (req, res) => {
         let articlesHTML = '';
         if (articles && articles.length > 0) {
             articles.forEach(article => {
-                const excerpt = article.html.replace(/<[^>]+>/g, '').substring(0, 150) + '...';
+                // Replace <br> and </p> tags with two spaces before removing all HTML tags
+                let excerptText = article.html.replace(/<br\s*\/?>/gi, '  ').replace(/<\/p>/gi, '  ');
+                const excerpt = excerptText.replace(/<[^>]+>/g, '').substring(0, 150) + '...';
                 const wordCount = article.html.split(' ').length;
                 const readTime = Math.max(1, Math.ceil(wordCount / 150));
                 console.log(`Article ${article.id}: Visible = "${article.Visible}" (type: ${typeof article.Visible})`);
