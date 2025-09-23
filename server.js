@@ -272,7 +272,8 @@ app.route('/blog').get(async (req, res) => {
     Articles.forEach(article => {
         article.word_count = article.html.split(' ').length;
         article.read_time = Math.max(1, Math.ceil(article.word_count / 150)); 
-        article.excerpt = article.html.replace(/<[^>]+>/g, '').substring(0, 200) + '... Read More';
+        let excerptText = article.html.replace(/<br\s*\/?>/gi, '  ').replace(/<\/p>/gi, '  ');
+        article.excerpt = excerptText.replace(/<[^>]+>/g, '').substring(0, 200) + '... Read More';
         article.html = ''; 
         article.bloghtml = `<article class="article" onclick="location.href='/article/${article.id}'" data-category="${article.department.toLowerCase()}">
                 <div class="article-category">${article.department}</div>
