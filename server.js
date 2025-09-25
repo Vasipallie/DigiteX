@@ -69,7 +69,7 @@ app.route('/authorportal').get(async (req, res) => {
         if (!user) {
             return res.status(401).redirect('/login');
         }
-        console.log('Fetching user data for UID:'+user.id);
+        console.log('Fetching user data for UID:'+user.id); 
         const { data: userData, error } = await supabase
             .from('Users')
             .select('*')
@@ -360,6 +360,9 @@ app.delete('/delete-article/:id', async (req, res) => {
         console.error('Error in delete article:', error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
+});
+app.route('/contact').get((req, res) => {
+    res.render('contact');
 });
 
 app.listen(3000, () => {
