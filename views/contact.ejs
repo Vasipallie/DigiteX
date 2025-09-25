@@ -18,6 +18,29 @@
   font-family: "Be Vietnam Pro", sans-serif;
   font-weight: 100;
   font-size: 1.2em;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+@media (max-width: 768px) {
+  html {
+    padding: 4px;
+    font-size: 1em;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
 }
 
 .nav {
@@ -31,6 +54,36 @@
   box-sizing: border-box;
   border-bottom: 1px solid #333;
   border-radius: 100px;
+  position: relative;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .logo {
@@ -78,8 +131,71 @@
 }
 
 @media (max-width: 768px) {
+  .nav {
+    height: auto;
+    min-height: 60px;
+    padding: 10px 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-radius: 15px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  
+  .logo img {
+    height: 50px;
+    max-width: 50px;
+  }
+  
+  .logofont {
+    font-size: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .hamburger {
+    display: flex;
+    flex-shrink: 0;
+  }
+  
   .nav-links {
-    display: none; 
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    background-color: #161616;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    gap: 15px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .nav-links.mobile-open {
+    display: flex;
+  }
+  
+  .nav-links a {
+    font-size: 1.1em;
+    padding: 12px 0;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active {
+    border-left-color: #28829e;
+    border-bottom-color: transparent;
   }
 }
 .top{
@@ -93,6 +209,25 @@
     border-bottom: 2px solid #abe1f1;
     padding:30px;
     padding-top:50px;
+    min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .top {
+    height: 60vh;
+    min-height: 350px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top {
+    height: 50vh;
+    min-height: 300px;
+    padding: 15px;
+    border-radius: 15px;
+  }
 }
 
 button {
@@ -104,14 +239,61 @@ button {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    touch-action: manipulation;
+    min-height: 44px;
+}
+
+@media (max-width: 480px) {
+  button {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    min-height: 50px;
+  }
 }
 
 .textarea{
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.5);
-    width: fit-content ;
+    width: fit-content;
+    max-width: 90%;
     padding: 30px;
     border-radius: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .textarea {
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 95%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .textarea {
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+  }
+  
+  .textarea .logofont {
+    font-size: 2.2em !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0.6em !important;
+    word-wrap: break-word;
+  }
+  
+  .textarea p:not(.logofont) {
+    font-size: 1em;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
 }
 footer{
     position: relative;
@@ -338,11 +520,16 @@ footer{
     <img src="resources/logo.png" alt="DigiteX Logo">
     <span class="logofont">DigiteX</span>
   </div>
-  <nav class="nav-links" role="navigation" aria-label="Primary">
-    <a href="/" >Home</a>
-    <a href="Blog" >Blog</a>
-    <a href="contact" class="active">Contact Us</a>
-    <a href="Login">Login</a>
+  <div class="hamburger" onclick="toggleMobileNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact" class="active">Contact Us</a>
+    <a href="/login">Login</a>
   </nav>
 </div>
     <div class="top">
@@ -358,5 +545,37 @@ footer{
     <p style="text-align: center; color: #888; font-size: 0.9em; margin-top: 20px;margin-bottom: 0;">&copy; 2024 DigiteX. All rights reserved.</p>
     <p style="text-align: center; color: #888; font-size: 0.7em; margin-top: 5px;">Developed by Vasipalli Eshan Aditya, Maintained by DigiteX</p>
     </footer>
+
+    <script>
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navLinks.classList.toggle('mobile-open');
+            hamburger.classList.toggle('active');
+        }
+        
+        // Close mobile nav when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                const hamburger = document.querySelector('.hamburger');
+                navLinks.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+            });
+        });
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('.nav');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-open')) {
+                navLinks.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -19,10 +19,23 @@ html {
     font-weight: 100;
     font-size: 1.2em;
 }
+
+@media (max-width: 768px) {
+    html {
+        font-size: 1em;
+    }
+}
 body {
     display: flex;
     min-height: 100vh;
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        min-height: 100vh;
+    }
 }
 .sidebar {
     display: flex;
@@ -110,6 +123,147 @@ body {
     .logofont { font-size: 1em; }
     .nav-link { font-size: 0.9em; padding: 8px 0 8px 10px; gap: 6px; }
     .nav-link .icon { width: 1em; }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        min-width: 100%;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-height: auto;
+        height: auto;
+        padding: 10px 15px;
+        border-radius: 0;
+        border-right: none;
+        border-bottom: 1.5px solid #222b;
+        gap: 10px;
+        overflow-x: hidden;
+    }
+    
+    .logo {
+        flex-direction: row;
+        margin-bottom: 0;
+        gap: 8px;
+        flex-shrink: 0;
+        min-width: 0;
+    }
+    
+    .logo img {
+        height: 40px;
+        width: 40px;
+        flex-shrink: 0;
+    }
+    
+    .logofont {
+        font-size: 1.2em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .nav-links {
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 0;
+        width: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 5px 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #28829e transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .nav-links::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar-thumb {
+        background: #28829e;
+        border-radius: 2px;
+    }
+    
+    .nav-links::-webkit-scrollbar-thumb:hover {
+        background: #3a9cb8;
+    }
+    
+    .nav-link {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: none;
+        background: rgba(40, 130, 158, 0.1);
+        font-size: 0.85em;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: fit-content;
+    }
+    
+    .nav-link.active {
+        background: #28829e;
+        border-left: none;
+    }
+    
+    .main {
+        padding: 15px;
+    }
+    
+    .main .logofont {
+        font-size: 2.5em !important;
+        line-height: 1.1 !important;
+        margin-block: 0.4em !important;
+    }
+    
+    .article-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .article-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .toggle-btn, .delete-btn {
+        padding: 12px 20px;
+        font-size: 0.9em;
+        min-height: 50px;
+        touch-action: manipulation;
+    }
+    
+    .modal-content {
+        margin: 25% auto;
+        padding: 30px 20px;
+        max-width: 95%;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .confirm-btn, .cancel-btn {
+        width: 100%;
+        min-height: 50px;
+        font-size: 1.1em;
+    }
 }
 .top{
     width: 100%;

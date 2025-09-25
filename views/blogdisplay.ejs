@@ -21,6 +21,13 @@
             font-size: 1.2em;
         }
 
+        @media (max-width: 768px) {
+            html {
+                padding: 8px;
+                font-size: 1em;
+            }
+        }
+
         .nav {
             display: flex;
             align-items: center;
@@ -32,6 +39,36 @@
             box-sizing: border-box;
             border-bottom: 1px solid #333;
             border-radius: 100px;
+            position: relative;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         .logo {
@@ -452,6 +489,60 @@
                 padding: 10px;
             }
             
+            .nav {
+                height: auto;
+                min-height: 60px;
+                padding: 10px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+                border-radius: 15px;
+            }
+            
+            .logo {
+                flex: 1 1 auto;
+            }
+            
+            .logo img {
+                height: 60px;
+            }
+            
+            .logofont {
+                font-size: 1.4em;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background-color: #161616;
+                padding: 15px;
+                border-radius: 10px;
+                margin-top: 10px;
+                gap: 15px;
+            }
+            
+            .nav-links.mobile-open {
+                display: flex;
+            }
+            
+            .nav-links a {
+                font-size: 1.1em;
+                padding: 12px 0;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+                padding-left: 10px;
+            }
+            
+            .nav-links a:hover,
+            .nav-links a.active {
+                border-left-color: #2e79ac;
+                border-bottom-color: transparent;
+            }
+            
             .blog-container {
                 margin: 20px auto;
             }
@@ -485,13 +576,52 @@
                 font-size: 2.4em;
             }
             
+            .blog-content {
+                padding: 30px 20px;
+            }
+            
+            .blog-content p {
+                font-size: 1em;
+                text-align: left;
+            }
+            
+            .blog-content p:first-of-type:first-letter {
+                font-size: 3em;
+                margin: 3px 8px 0 0;
+            }
+            
+            .intro-section {
+                padding: 30px 20px;
+            }
+            
             .intro-text {
                 font-size: 1.05em;
+                text-align: left;
             }
             
             .intro-text:first-letter {
                 font-size: 3.5em;
                 margin: 5px 10px 0 0;
+            }
+
+            table {
+                font-size: 0.8em;
+            }
+            
+            table th,
+            table td {
+                padding: 8px 6px;
+            }
+            
+            blockquote {
+                padding: 15px 20px;
+                margin: 20px 0;
+            }
+            
+            pre {
+                padding: 15px;
+                margin: 20px 0;
+                font-size: 0.8em;
             }
         }
     </style>
@@ -502,11 +632,16 @@
             <img src="/logo.png" alt="DigiteX Logo">
             <span class="logofont">DigiteX</span>
         </div>
-        <nav class="nav-links" role="navigation" aria-label="Primary">
+        <div class="hamburger" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
             <a href="/">Home</a>
-            <a href="/Blog" class="active">Blog</a>
+            <a href="/blog" class="active">Blog</a>
             <a href="/contact">Contact Us</a>
-            <a href="/Login">Login</a>
+            <a href="/login">Login</a>
         </nav>
     </div>
 
@@ -535,5 +670,37 @@
         </div>
 
     </div>
+    
+    <script>
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navLinks.classList.toggle('mobile-open');
+            hamburger.classList.toggle('active');
+        }
+        
+        // Close mobile nav when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                const hamburger = document.querySelector('.hamburger');
+                navLinks.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+            });
+        });
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('.nav');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-open')) {
+                navLinks.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
