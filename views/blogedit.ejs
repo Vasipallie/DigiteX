@@ -655,7 +655,8 @@ body {
             <input type="text" id="title" placeholder="Article Title" value="<%- JSON.stringify(article.title).slice(1, -1) %>">
             <select id="Department" name="Department">
                 <option value="" disabled>Select Department</option>
-                <option value="Artificial Intelligence" <%= article.department === 'Artificial Intelligence' ? 'selected' : '' %>>Artificial Intelligence</option>
+                <option value="general" <%= article.department === 'general' ? 'selected' : '' %>>General</option>
+                <option value="Technology" <%= article.department === 'Technology' ? 'selected' : '' %>>Technology</option>
                 <option value="Business" <%= article.department === 'Business' ? 'selected' : '' %>>Business</option>
                 <option value="Medicine" <%= article.department === 'Medicine' ? 'selected' : '' %>>Medicine</option>
             </select>
