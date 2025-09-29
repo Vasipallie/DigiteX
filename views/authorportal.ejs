@@ -241,7 +241,7 @@ body {
         text-align: center;
     }
     
-    .toggle-btn, .delete-btn {
+    .toggle-btn, .delete-btn, .edit-btn {
         padding: 12px 20px;
         font-size: 0.9em;
         min-height: 50px;
@@ -365,7 +365,7 @@ hr{
     gap: 12px;
 }
 
-.toggle-btn, .delete-btn {
+.toggle-btn, .delete-btn, .edit-btn {
     padding: 12px 24px;
     border: none;
     border-radius: 50px;
@@ -406,6 +406,17 @@ hr{
     background-color: #555;
     color: #fff;
     box-shadow: 0 4px 15px rgba(68, 68, 68, 0.3);
+    transform: translateY(-1px);
+}
+
+.edit-btn {
+    background-color: #28829e;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #3a9cb8;
+    box-shadow: 0 4px 15px rgba(40, 130, 158, 0.3);
     transform: translateY(-1px);
 }
 
@@ -582,7 +593,7 @@ hr{
         padding: 30px 20px;
     }
     
-    .toggle-btn, .delete-btn {
+    .toggle-btn, .delete-btn, .edit-btn {
         padding: 10px 20px;
         font-size: 0.9em;
     }
@@ -656,6 +667,10 @@ hr{
                     button.disabled = false;
                     button.textContent = originalText;
                 });
+            }
+
+            function editArticle(articleId) {
+                window.location.href = `/edit-article/${articleId}`;
             }
 
             function deleteArticle(articleId) {

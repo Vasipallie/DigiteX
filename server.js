@@ -134,6 +134,7 @@ app.route('/authorportal').get(async (req, res) => {
                     <div class="article-header">
                         <span class="article-status ${isVisible ? 'visible' : 'hidden'}">${isVisible ? 'PUBLISHED' : 'DRAFT'}</span>
                         <div class="article-actions">
+                            <button class="edit-btn" onclick="editArticle(${article.id})">Edit</button>
                             <button class="toggle-btn ${isVisible ? 'unpublish-btn' : 'publish-btn'}" onclick="toggleVisibility(${article.id}, ${isVisible})">
                                 ${isVisible ? 'Unpublish' : 'Publish'}
                             </button>
@@ -365,6 +366,69 @@ app.route('/contact').get((req, res) => {
     res.render('contact');
 });
 
+app.get('/edit-article/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { data: articles, error } = await supabase
+            .from('Articles')
+            .select('*')
+            .eq('id', id);
+
+        if (error || !articles || articles.length === 0) {
+            return res.status(404).send('Article not found');
+        }
+
+        const article = articles[0];
+        res.render('blogedit', { article });
+    } catch (error) {
+        console.error('Error loading article for edit:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+app.put('/update-article/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, html, department } = req.body;
+
+        if (!title || !html || !department) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Missing required fields' 
+            });
+        }
+
+        const { data, error } = await supabase
+            .from('Articles')
+            .update({ 
+                title, 
+                html, 
+                department
+            })
+            .eq('id', id);
+
+        if (error) {
+            console.error('Update error:', error);
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Failed to update article' 
+            });
+        }
+
+        res.json({ 
+            success: true, 
+            message: 'Article updated successfully',
+            redirectUrl: `/article/${id}`
+        });
+    } catch (error) {
+        console.error('Error updating article:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Internal server error' 
+        });
+    }
+});
+
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
-}); 
+});

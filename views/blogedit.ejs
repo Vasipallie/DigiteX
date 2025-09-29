@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiteX | Edit Article</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap');
+@font-face {
+    font-family: 'digitfont';
+    src: url('./digifont.ttf') format('truetype');
+}
+
+html {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 100;
+    font-size: 1.2em;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 1em;
+    }
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        overflow: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 240px;
+    background: linear-gradient(160deg, #181c22 60%, #222831 100%);
+    padding: 32px 0 24px 0;
+    box-sizing: border-box;
+    border-right: 1.5px solid #222b;
+    border-radius: 0 30px 30px 0;
+    box-shadow: 2px 0 16px 0 #0006;
+    gap: 36px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        min-width: 100%;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-height: auto;
+        height: auto;
+        padding: 15px 20px;
+        border-radius: 0;
+        border-right: none;
+        border-bottom: 1.5px solid #222b;
+        gap: 15px;
+    }
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        flex-direction: row;
+        margin-bottom: 0;
+        gap: 10px;
+    }
+}
+
+.logo img {
+    height: 60px;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 2px 8px #0008);
+}
+
+.logofont {
+    font-family: 'digitfont', sans-serif;
+    font-size: 2em;
+    color: #fff;
+    user-select: none;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 0 2px 8px #0006;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: stretch;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: row;
+        gap: 15px;
+        margin-top: 0;
+        width: auto;
+    }
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #b3e5fc;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.13em;
+    padding: 12px 0 12px 32px;
+    border-left: 4px solid transparent;
+    border-radius: 8px 0 0 8px;
+    background: none;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    box-sizing: border-box;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .nav-link {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: none;
+        background: rgba(40, 130, 158, 0.1);
+        font-size: 0.85em;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: fit-content;
+    }
+}
+
+.nav-link:hover {
+    border-left: 4px solid #28829e;
+    color: #ffffff;
+    background: rgba(40, 130, 158, 0.1);
+}
+
+.nav-link.active {
+    border-left: 4px solid #28829e;
+    color: #ffffff;
+    background: rgba(40, 130, 158, 0.2);
+}
+
+@media (max-width: 768px) {
+    .nav-link.active {
+        background: #28829e;
+        border-left: none;
+    }
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: linear-gradient(135deg, #1a1d23 0%, #0f1115 100%);
+    min-height: 0;
+    overflow: auto;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 15px;
+        gap: 15px;
+    }
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.header-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #28829e 0%, #1e6b82 100%);
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(40, 130, 158, 0.3);
+    white-space: nowrap;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #3a9cb8 0%, #2a7a96 100%);
+    box-shadow: 0 6px 16px rgba(40, 130, 158, 0.4);
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    background: #4a4a4a;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.details {
+    display: flex;
+    gap: 16px;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+#title {
+    flex: 2;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #3a3f47;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1.1em;
+    transition: border-color 0.3s, background 0.3s;
+    outline: none;
+    min-height: 24px;
+}
+
+#title:focus {
+    border-color: #28829e;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(40, 130, 158, 0.1);
+}
+
+#title::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+#title:focus::placeholder {
+    color: #aaa;
+}
+
+#Department {
+    flex: 1;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #3a3f47;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1.1em;
+    transition: border-color 0.3s, background 0.3s;
+    outline: none;
+    cursor: pointer;
+    min-height: 58px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+}
+
+#Department:focus {
+    border-color: #28829e;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(40, 130, 158, 0.1);
+}
+
+#Department option {
+    background: #2a2f36;
+    color: #ffffff;
+}
+
+.editor-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.note-editor.note-frame {
+    border-radius: 12px;
+    border: 2px solid #3a3f47;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.02);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+.note-toolbar {
+    background: linear-gradient(135deg, #2a2f36 0%, #1e2328 100%);
+    border-radius: 12px 12px 0 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #3a3f47 !important;
+    padding: 12px 16px;
+    flex-shrink: 0;
+}
+
+.note-toolbar .note-btn {
+    color: #b3e5fc;
+    background: transparent;
+    border: none !important;
+    margin: 0 2px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.note-toolbar .note-btn:hover,
+.note-toolbar .note-btn:focus {
+    background: rgba(40, 130, 158, 0.2);
+    color: #fff;
+}
+
+.note-toolbar .note-btn.active {
+    background: #28829e;
+    color: #fff;
+}
+
+.note-editable {
+    flex: 1 !important;
+    font-size: 1.1em !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-radius: 0 0 12px 12px !important;
+    padding: 20px !important;
+    line-height: 1.6 !important;
+    border: none !important;
+    color: #ffffff !important;
+    overflow-y: auto !important;
+    max-height: 100% !important;
+    height: auto !important;
+    min-height: 300px !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+    .note-editable {
+        min-height: 200px !important;
+        padding: 15px !important;
+        font-size: 1em !important;
+    }
+}
+
+.note-editable:focus {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.note-editable blockquote {
+    margin: 15px 0;
+    padding: 12px 20px;
+    border-left: 4px solid #28829e;
+    background: rgba(40, 130, 158, 0.1);
+    font-style: italic;
+    color: #b3e5fc;
+    border-radius: 0 8px 8px 0;
+}
+
+.note-editable blockquote p {
+    margin: 0;
+}
+
+.note-editable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.note-editable::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.note-editable::-webkit-scrollbar-thumb {
+    background: #28829e;
+    border-radius: 4px;
+}
+
+.note-editable::-webkit-scrollbar-thumb:hover {
+    background: #3a9cb8;
+}
+
+.status-message {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 16px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.status-message:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.status-message.success {
+    background: rgba(46, 160, 67, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(46, 160, 67, 0.3);
+}
+
+.status-message.error {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 0;
+        width: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 5px 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #28829e transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .nav-links::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar-thumb {
+        background: #28829e;
+        border-radius: 2px;
+    }
+    
+    .nav-links::-webkit-scrollbar-thumb:hover {
+        background: #3a9cb8;
+    }
+    
+    .nav-link {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: none;
+        background: rgba(40, 130, 158, 0.1);
+        font-size: 0.85em;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: fit-content;
+    }
+    
+    .nav-link.active {
+        background: #28829e;
+        border-left: none;
+    }
+    
+    .header-section {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .details {
+        flex-direction: column;
+    }
+    
+    .header-title {
+        font-size: 1.6em;
+        text-align: center;
+    }
+    
+    .submit-btn {
+        width: 100%;
+        min-height: 50px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 600px) {
+    .main {
+        padding: 15px;
+    }
+    .details {
+        gap: 10px;
+    }
+    #title, #Department {
+        padding: 12px 15px;
+        font-size: 1em;
+        min-height: 50px;
+    }
+    
+    .note-toolbar {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+    }
+    
+    .note-toolbar .note-btn {
+        margin: 2px 1px;
+        padding: 6px 8px;
+        font-size: 0.9em;
+        min-height: 36px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .header-title {
+        font-size: 1.4em;
+    }
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    white-space: nowrap;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
+}
+
+.delete-btn:active {
+    transform: translateY(0);
+}
+
+.delete-btn:disabled {
+    background: #4a4a4a;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .button-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .delete-btn {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo" onclick="location.href='/'">
+            <img src="resources/logo.png" alt="DigiteX Logo">
+            <span class="logofont">DigiteX</span>
+        </div>
+        <nav class="nav-links" role="navigation" aria-label="Primary">
+            <a href="authorportal" class="nav-link"><span class="icon">🏠</span>Dashboard</a>
+            <a href="New" class="nav-link"><span class="icon">📝</span>New Post</a>
+            <a href="#" class="nav-link active"><span class="icon">✏️</span>Edit Article</a>
+        </nav>
+    </div>
+    
+    <div class="main">
+        <div class="header-section">
+            <h1 class="header-title">Edit Article ✏️</h1>
+            <div class="button-group">
+                <button class="delete-btn" onclick="deleteArticle()">🗑️ Delete Article</button>
+                <button class="submit-btn" onclick="updateArticle()">💾 Update Article</button>
+            </div>
+        </div>
+        
+        <div class="details">
+            <input type="text" id="title" placeholder="Article Title" value="<%- JSON.stringify(article.title).slice(1, -1) %>">
+            <select id="Department" name="Department">
+                <option value="" disabled>Select Department</option>
+                <option value="Artificial Intelligence" <%= article.department === 'Artificial Intelligence' ? 'selected' : '' %>>Artificial Intelligence</option>
+                <option value="Business" <%= article.department === 'Business' ? 'selected' : '' %>>Business</option>
+                <option value="Medicine" <%= article.department === 'Medicine' ? 'selected' : '' %>>Medicine</option>
+            </select>
+        </div>
+
+        <div class="editor-container">
+            <div id="summernote"></div>
+        </div>
+
+        <div id="status" class="status-message"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
+
+    <script>
+    const articleId = <%= article.id %>;
+    const originalContent = <%- JSON.stringify(article.html) %>;
+    
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            fontNames: ['Arial', 'Roboto', 'Open Sans', 'Lato'],
+            fontNamesIgnoreCheck: ['Arial', 'Roboto', 'Open Sans', 'Lato'],
+            lineHeights: ['1', '1.2', '1.5', '2', '2.5', '3'],
+            height: null, 
+            minHeight: null, 
+            maxHeight: null, 
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'strikethrough']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['misc', ['undo', 'redo']]
+            ],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '24', '28', '32', '36', '48'],
+            styleTags: [
+                'p',
+                { title: 'Blockquote', tag: 'blockquote', className: '', value: 'blockquote' },
+                'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+            ],
+            placeholder: 'Edit your article content...',
+            disableResizeEditor: false
+        });
+        
+        // Set the initial content
+        $('#summernote').summernote('code', originalContent);
+        
+        // Debug: Log the original HTML content
+        console.log('Original HTML content:', originalContent);
+    });
+
+    function updateArticle() {
+        const submitBtn = document.querySelector('.submit-btn');
+        const html = $('#summernote').summernote('code');
+        const textContent = html.replace(/<[^>]*>/g, '').trim();
+        const title = document.getElementById('title').value.trim();
+        const department = document.getElementById('Department').value;
+        
+        if (!textContent) {
+            showStatus('❌ Please enter some content for your article.', 'error');
+            return;
+        }
+        
+        if (!title) {
+            showStatus('❌ Please enter a title for your article.', 'error');
+            return;
+        }
+        
+        if (!department) {
+            showStatus('❌ Please select a department.', 'error');
+            return;
+        }
+        
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Updating...';
+        }
+        
+        showStatus('📤 Updating your article...', '');
+        
+        fetch(`/update-article/${articleId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                html: html,
+                title: title,
+                department: department,
+                timestamp: new Date().toISOString(),
+                wordCount: textContent.split(/\s+/).length
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Update failed');
+            }
+        })
+        .then(result => {
+            showStatus('✅ Article updated successfully!', 'success');
+            if (result.redirectUrl) {
+                setTimeout(() => {
+                    window.location.href = result.redirectUrl;
+                }, 1500);
+            }
+        })
+        .catch(error => {
+            console.error('Update error:', error);
+            showStatus('❌ Network error. Please try again.', 'error');
+        })
+        .finally(() => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '💾 Update Article';
+            }
+        });
+    }
+
+    function deleteArticle() {
+        if (!confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
+            return;
+        }
+        
+        const deleteBtn = document.querySelector('.delete-btn');
+        
+        if (deleteBtn) {
+            deleteBtn.disabled = true;
+            deleteBtn.innerHTML = '⏳ Deleting...';
+        }
+        
+        showStatus('🗑️ Deleting article...', '');
+        
+        fetch(`/delete-article/${articleId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Delete failed');
+            }
+        })
+        .then(result => {
+            showStatus('✅ Article deleted successfully!', 'success');
+            setTimeout(() => {
+                window.location.href = '/authorportal';
+            }, 1500);
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            showStatus('❌ Network error. Please try again.', 'error');
+        })
+        .finally(() => {
+            if (deleteBtn) {
+                deleteBtn.disabled = false;
+                deleteBtn.innerHTML = '🗑️ Delete Article';
+            }
+        });
+    }
+
+    function showStatus(message, type) {
+        const statusEl = document.getElementById('status');
+        if (statusEl) {
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.textContent = '';
+                    statusEl.className = 'status-message';
+                }, 5000);
+            }
+        }
+    }
+
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+S to save
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            updateArticle();
+        }
+        // Ctrl+Delete to delete (with confirmation)
+        if (e.ctrlKey && e.key === 'Delete') {
+            e.preventDefault();
+            deleteArticle();
+        }
+    });
+    </script>
+</body>
+</html>
