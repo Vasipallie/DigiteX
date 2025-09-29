@@ -425,7 +425,7 @@ app.put('/update-article/:id', async (req, res) => {
             .single();
         const author = userData.name;
         console.log('User data fetched for article update:', userData);
-        
+
 
         if (!title || !html || !department) {
             return res.status(400).json({ 
@@ -440,7 +440,7 @@ app.put('/update-article/:id', async (req, res) => {
                 title, 
                 html, 
                 department,
-                author
+                Author: author
             })
             .eq('id', id);
 
