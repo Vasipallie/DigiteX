@@ -409,8 +409,23 @@ app.put('/update-article/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { title, html, department } = req.body;
-        //get author
-        const author = userData.id;
+        //get author from users database
+        const session = req.cookies.session;
+        if (!session) {
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+        const { data: { user } } = await supabase.auth.getUser(session.access_token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid session' });
+        }
+        const { data: userData, errori } = await supabase
+            .from('Users')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+        const author = userData.name;
+        console.log('User data fetched for article update:', userData);
+        
 
         if (!title || !html || !department) {
             return res.status(400).json({ 
