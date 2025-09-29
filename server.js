@@ -94,7 +94,7 @@ app.route('/authorportal').get(async (req, res) => {
          var { data: articles, error: articlesError } = await supabase
             .from('Articles')
             .select('*')
-            .eq('department', userData.dept)
+            .in('department', [userData.dept, 'General'])
             .order('id', { ascending: false });
         }
         console.log('Articles fetched for department:', userData.dept, articles);
@@ -179,6 +179,24 @@ app.post('/submit-article', async (req, res) => {
                 message: 'No data received' 
             });
         }
+        //get author
+        const session = req.cookies.session;
+        if (!session) {
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+        const { data: { user } } = await supabase.auth.getUser(session.access_token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid session' });
+        }
+        //get name from users database
+        const { data: userData, errori } = await supabase
+            .from('Users')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+        const author = userData.name;
+        console.log('User data fetched for article submission:', userData);
+
         const { title, html, department } = req.body;
         let { data, error } = await supabase
             .from('Articles')
@@ -187,7 +205,8 @@ app.post('/submit-article', async (req, res) => {
                     title,
                     html: html,
                     department,
-                    Visible: 'FALSE'  
+                    Author:author,
+                    Visible: 'FALSE'
                 }
             ]);
             console.log('Supabase insert response:', { data, error });
@@ -390,6 +409,8 @@ app.put('/update-article/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { title, html, department } = req.body;
+        //get author
+        const author = userData.id;
 
         if (!title || !html || !department) {
             return res.status(400).json({ 
@@ -403,7 +424,8 @@ app.put('/update-article/:id', async (req, res) => {
             .update({ 
                 title, 
                 html, 
-                department
+                department,
+                author
             })
             .eq('id', id);
 
