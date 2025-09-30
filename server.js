@@ -465,6 +465,10 @@ app.put('/update-article/:id', async (req, res) => {
         });
     }
 });
+app.route('/about').get((req, res) => {
+    res.render('about');
+}
+);
 
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
