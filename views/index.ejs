@@ -475,6 +475,140 @@ footer{
     }
 }
 
+/* Mission, Vision, Values Section */
+.mvv-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    margin-top: 50px;
+}
+
+.mvv-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mvv-title {
+    font-family: 'digitfont', sans-serif;
+    font-size: 3em;
+    color: #ffffff;
+    margin-bottom: 60px;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+.mvv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.mvv-card {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mvv-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mvv-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: #555;
+}
+
+.mvv-card:hover::before {
+    transform: translateX(0);
+}
+
+.mvv-icon {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.mvv-card h3 {
+    font-family: 'digitfont', sans-serif;
+    font-size: 1.8em;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.mvv-card p {
+    color: #cccccc;
+    line-height: 1.6;
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.mission-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+}
+
+.mission-card .mvv-icon {
+    color: #ff6b6b;
+}
+
+.vision-card {
+    background: linear-gradient(145deg, #0f3460, #16537e);
+}
+
+.vision-card .mvv-icon {
+    color: #4ecdc4;
+}
+
+.values-card {
+    background: linear-gradient(145deg, #2d1b69, #11998e);
+}
+
+.values-card .mvv-icon {
+    color: #45b7d1;
+}
+
+@media (max-width: 768px) {
+    .mvv-section {
+        padding: 60px 15px;
+    }
+    
+    .mvv-title {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    
+    .mvv-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .mvv-card {
+        padding: 30px 20px;
+    }
+    
+    .mvv-card h3 {
+        font-size: 1.5em;
+    }
+    
+    .mvv-card p {
+        font-size: 1em;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -503,7 +637,32 @@ footer{
             <button onclick="location.href='/blog'">Explore Articles</button>
         </div>
     </div>
-    
+
+    <!-- Mission, Vision, Values Section -->
+    <section class="mvv-section">
+        <div class="mvv-container">
+            <h2 class="mvv-title">Our Foundation</h2>
+            <div class="mvv-grid">
+                <div class="mvv-card mission-card">
+                    <span class="mvv-icon">🧑‍🤝‍🧑</span>
+                    <h3>Who are We</h3>
+                    <p>A student-led digital publication uniting voices from different fields to explore how technology is reshaping our world.</p>
+                </div>
+                
+                <div class="mvv-card vision-card">
+                    <span class="mvv-icon">⚡</span>
+                    <h3>What we do</h3>
+                    <p>We publish insights, spotlight innovators, and host creative initiatives that connect students, alumni, and professionals across industries.</p>
+                </div>
+                
+                <div class="mvv-card values-card">
+                    <span class="mvv-icon">🔮</span>
+                    <h3>Vision</h3>
+                    <p>To build a global hub where curiosity meets innovation, and where the next generation of thinkers collaborates to shape the future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
     <hr style="margin-top: 50px; border: 1px solid #333;">
