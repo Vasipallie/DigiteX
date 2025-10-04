@@ -134,6 +134,7 @@ app.route('/authorportal').get(async (req, res) => {
                     <div class="article-header">
                         <span class="article-status ${isVisible ? 'visible' : 'hidden'}">${isVisible ? 'PUBLISHED' : 'DRAFT'}</span>
                         <div class="article-actions">
+                            <button class="edit-btn" onclick="editArticle(${article.id})">Edit</button>
                             <button class="toggle-btn ${isVisible ? 'unpublish-btn' : 'publish-btn'}" onclick="toggleVisibility(${article.id}, ${isVisible})">
                                 ${isVisible ? 'Unpublish' : 'Publish'}
                             </button>

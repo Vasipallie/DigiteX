@@ -3,307 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <!-- Enhanced font loading with fallbacks -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <title>DigiteX | Blog</title>
     <style>
-        :root {
-          --bg-gradient: linear-gradient(135deg, #fae8ea 0%, #f5f0f6 50%, #e5f5ee 100%);
-          --primary: #edccd2;
-          --soft-purple: #f5f0f6;
-          --soft-green: #e5f5ee;
-          --leaf-green: #a6c8b5;
-          --leaf-green-hover: #10b981;
-          --brand-deep: #463b38;
-          --headline: #22212a;
-          --text: #4a4a56;
-          --text-light: #6b6b78;
-          --cta-pink: #efb3c0;
-          --cta-pink-hover: #f8d4e3;
-          --border-card: #ebd2da;
-          --white: #ffffff;
-          --accent-red: #ef4444;
-          --accent-red-hover: #dc2626;
-          --shadow-light: 0 4px 20px rgba(234, 210, 212, 0.15);
-          --shadow-medium: 0 8px 32px rgba(234, 210, 212, 0.2);
-          --shadow-heavy: 0 12px 48px rgba(234, 210, 212, 0.25);
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
         @font-face{
             font-family: 'digitfont';
             src: url('/digifont.ttf') format('truetype');
         }
 
-        * { 
-          box-sizing: border-box; 
-          margin: 0;
-          padding: 0;
-        }
-        html { 
-          scroll-behavior: smooth; 
-        }
-        body {
-          background: var(--bg-gradient);
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          color: var(--text);
-          line-height: 1.6;
-          font-size: 16px;
-          overflow-x: hidden;
-        }
-        
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 24px;
+        html {
+            background-color: #000000;
+            margin: 0;
+            padding: 15px;
+            color: #ffffff;
+            font-family: "Be Vietnam Pro", sans-serif;
+            font-weight: 100;
+            font-size: 1.2em;
         }
 
-        /* Navigation - Enhanced to match index.ejs */
-        .nav-wrapper {
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(235, 210, 218, 0.3);
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          transition: all 0.3s ease;
+        @media (max-width: 768px) {
+            html {
+                padding: 8px;
+                font-size: 1em;
+            }
         }
-        
-        .nav-container {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 16px 24px;
-          max-width: 1400px;
-          margin: 0 auto;
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 50px;
+            background-color: #161616;
+            padding: 0 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #333;
+            border-radius: 100px;
+            position: relative;
         }
-        
-        .nav-brand {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-family: 'Crimson Text', serif;
-          font-size: 18px;
-          font-weight: 600;
-          color: var(--brand-deep);
-          text-decoration: none;
-          cursor: pointer;
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
         }
-        
-        .nav-logo {
-          width: 40px;
-          height: 40px;
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
         }
-        
-        .nav-menu {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          list-style: none;
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
         }
-        
-        .nav-link {
-          padding: 10px 20px;
-          border-radius: 25px;
-          text-decoration: none;
-          color: var(--text);
-          font-weight: 500;
-          transition: all 0.2s ease;
-          border: 1px solid transparent;
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
         }
-        
-        .nav-link:hover {
-          background: var(--soft-green);
-          color: var(--brand-deep);
-          transform: translateY(-1px);
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
-        
-        .nav-link.active {
-          background: var(--leaf-green);
-          color: var(--brand-deep);
-          font-weight: 600;
+
+        .logo {
+            display: flex;
+            align-items: center;
         }
-        
-        .mobile-menu-toggle {
-          display: none;
-          background: none;
-          border: none;
-          font-size: 1.5rem;
-          color: var(--brand-deep);
-          cursor: pointer;
+
+        .logo img {
+            height: 90px;
+            margin-right: 10px;
+        }
+
+        .logofont {
+            font-family: 'digitfont', sans-serif;
+            font-size: 1.8em;
+            color: #ffffff;
+            user-select: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            border-bottom-color: #2e79ac; 
+            color: #fff;
+        }
+
+        .nav-links a.active {
+            border-bottom-color: #2e79ac;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; 
+            }
         }
 
         /* Blog Display Styles */
         .blog-container {
-          max-width: 1000px;
-          margin: 40px auto;
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(20px);
-          border-radius: 24px;
-          box-shadow: var(--shadow-medium);
-          border: 1px solid rgba(235, 210, 218, 0.3);
-          overflow: hidden;
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #000000;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: none;
+            border: none;
         }
 
         .blog-header {
-          position: relative;
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          padding: 40px 48px 48px 48px;
-          background: transparent;
-          border-bottom: 1px solid rgba(235, 210, 218, 0.3);
-          min-height: 240px;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 30px 60px 40px 60px;
+            background: #000000;
+            border-bottom: 1px solid #333;
+            min-height: 200px;
         }
 
         .header-left {
-          flex: 1;
-          max-width: 70%;
-          padding-right: 40px;
+            flex: 1;
+            max-width: 70%;
+            padding-right: 40px;
         }
 
         .header-right {
-          flex: 0 0 260px;
-          display: flex;
-          align-items: flex-start;
-          justify-content: center;
-          margin-top: 10px;
+            flex: 0 0 260px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin-top: 10px;
         }
 
         .decorative-image {
-          width: 240px;
-          height: 180px;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: var(--shadow-medium);
-          transform: none;
-          transition: transform 0.3s ease;
-          border: 2px solid rgba(235, 210, 218, 0.3);
+            width: 240px;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transform: none;
+            transition: transform 0.3s ease;
         }
 
         .decorative-image:hover {
-          transform: scale(1.02);
-          box-shadow: var(--shadow-heavy);
+            transform: scale(1.02);
         }
 
         .decorative-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          filter: brightness(0.95) contrast(1.05);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) contrast(1.05);
         }
 
         .blog-tags {
-          display: flex;
-          gap: 12px;
-          margin-bottom: 25px;
-          flex-wrap: wrap;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .tag {
-          background: var(--soft-green);
-          color: var(--brand-deep);
-          padding: 6px 14px;
-          border-radius: 20px;
-          font-size: 0.8rem;
-          font-weight: 600;
-          border: 1px solid var(--border-card);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          transition: all 0.2s ease;
-        }
-
-        .tag:hover {
-          background: var(--leaf-green);
-          transform: translateY(-1px);
+            background: transparent;
+            color: #827e7e;
+            padding: 6px 14px;
+            border-radius: 0;
+            font-size: 0.8em;
+            font-weight: 400;
+            border: 1px solid #444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .blog-title {
-          font-size: 3rem;
-          font-weight: 800;
-          margin: 0;
-          color: var(--headline);
-          line-height: 1.1;
-          font-family: 'Inter', sans-serif;
-          letter-spacing: -0.02em;
+            font-size: 3.2em;
+            font-weight: 400;
+            margin: 0;
+            color: #33d2e4;
+            line-height: 1.1;
+            font-family: 'digitfont', sans-serif;
         }
 
         .blog-subtitle {
-          font-size: 1.5rem;
-          color: var(--text);
-          margin: 16px 0 30px 0;
-          font-weight: 400;
-          line-height: 1.4;
-          font-family: 'Crimson Text', serif;
+            font-size: 1.8em;
+            color: #ffffff;
+            margin: 0 0 30px 0;
+            font-weight: 300;
+            line-height: 1.2;
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
 
         .author-info {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
         }
 
         .author-avatar {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, var(--soft-green), var(--soft-purple));
-          border: 2px solid var(--border-card);
-          background-size: cover;
-          background-position: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: url('login.jpg') center/cover;
+            border: 2px solid #333;
         }
 
         .author-details h4 {
-          margin: 0;
-          color: var(--headline);
-          font-size: 1.1rem;
-          font-weight: 600;
-          font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
         }
 
         .author-details p {
-          margin: 0;
-          color: var(--text-light);
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+            margin: 0;
+            color: #888;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .divider {
-          height: 1px;
-          background: rgba(235, 210, 218, 0.3);
-          margin: 0;
-          width: 100%;
+            height: 1px;
+            background: #333;
+            margin: 0;
+            width: 100%;
         }
 
         .blog-content {
-          padding: 40px 48px;
-          background: transparent;
-          max-width: 1000px;
-          margin: 0 auto;
+            padding: 50px 60px;
+            background: #000000;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .blog-content p {
-          color: var(--text);
-          line-height: 1.7;
-          margin: 0 0 24px 0;
-          font-size: 1.1rem;
-          text-align: justify;
-          font-family: 'Inter', sans-serif;
-          font-weight: 400;
+            color: #ccc;
+            line-height: 1.7;
+            margin: 0 0 22px 0;
+            font-size: 1.05em;
+            text-align: justify;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 300;
         }
 
         .blog-content p:first-of-type {
-          font-size: 1.25rem;
-          margin-bottom: 32px;
-          font-weight: 500;
-          color: var(--headline);
+            font-size: 1.2em;
+            margin-bottom: 28px;
+            font-weight: 400;
         }
 
         .blog-content p:first-of-type:first-letter {
-          font-size: 3.8rem;
-          font-weight: bold;
-          float: left;
+            font-size: 3.8em;
+            font-weight: bold;
+            float: left;
             line-height: 0.8;
             margin: 5px 12px 0 0;
             color: #2e79ac;
@@ -392,7 +367,7 @@
 
         .intro-section {
             padding: 40px 60px 50px 60px;
-            background: #ffffff;
+            background: #000000;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -649,129 +624,29 @@
                 font-size: 0.8em;
             }
         }
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .nav-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            flex-direction: column;
-            padding: 20px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 20px rgba(234, 210, 212, 0.2);
-            gap: 10px;
-          }
-
-          .nav-menu.mobile-open {
-            display: flex;
-          }
-
-          .mobile-menu-toggle {
-            display: block;
-          }
-
-          .container {
-            padding: 0 16px;
-          }
-
-          .blog-container {
-            margin: 20px auto;
-            border-radius: 16px;
-          }
-
-          .blog-header {
-            padding: 24px;
-            flex-direction: column;
-            min-height: auto;
-          }
-
-          .header-left {
-            max-width: 100%;
-            padding-right: 0;
-            margin-bottom: 20px;
-          }
-
-          .header-right {
-            flex: none;
-            width: 100%;
-            justify-content: center;
-          }
-
-          .decorative-image {
-            width: 100%;
-            max-width: 300px;
-            height: 150px;
-          }
-
-          .blog-title {
-            font-size: 2rem;
-          }
-
-          .blog-subtitle {
-            font-size: 1.2rem;
-          }
-
-          .blog-content {
-            padding: 24px;
-          }
-
-          .blog-content p {
-            font-size: 1rem;
-            margin-bottom: 20px;
-          }
-
-          .blog-content p:first-of-type {
-            font-size: 1.1rem;
-          }
-
-          .blog-content p:first-of-type:first-letter {
-            font-size: 3rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .nav-container {
-            padding: 12px 16px;
-          }
-
-          .blog-header {
-            padding: 20px;
-          }
-
-          .blog-content {
-            padding: 20px;
-          }
-
-          .blog-title {
-            font-size: 1.8rem;
-          }
-        }
     </style>
 </head>
 <body>
-    <!-- Enhanced Navigation -->
-    <nav class="nav-wrapper">
-      <div class="nav-container">
-        <a href="/" class="nav-brand">
-          <img src="/resources/logo.png" alt="DigiteX Logo" class="nav-logo">
-          <span style="font-family: 'digitfont', sans-serif;">Projects Arts and Affirmations</span>
-        </a>
-        <ul class="nav-menu" id="navLinks">
-          <li><a href="/" class="nav-link">Home</a></li>
-          <li><a href="/blog" class="nav-link active">Blog</a></li>
-          <li><a href="/contact" class="nav-link">Contact</a></li>
-          <li><a href="/about" class="nav-link">About</a></li>
-          <li><a href="/login" class="nav-link">Login</a></li>
-        </ul>
-        <button class="mobile-menu-toggle" onclick="toggleMobileNav()">☰</button>
-      </div>
-    </nav>
+    <div class="nav">
+        <div class="logo" onclick="location.href='/'" style="cursor: pointer;">
+            <img src="/resources/logo.png" alt="DigiteX Logo">
+            <span class="logofont">DigiteX</span>
+        </div>
+        <div class="hamburger" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+            <a href="/">Home</a>
+            <a href="/blog" class="active">Blog</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/about">About</a>
+            <a href="/login">Login</a>
+        </nav>
+    </div>
 
-    <div class="container">
-      <div class="blog-container">
+    <div class="blog-container">
         <div class="blog-header">
             <div class="header-left">
                 <div class="blog-tags">
@@ -782,6 +657,11 @@
                 <h1 class="blog-title"><%= locals.title %></h1>
                 </div>
             
+            <div class="header-right">
+                <div class="decorative-image">
+                    <img src="/resources/bg.jpg" alt="Article illustration">
+                </div>
+            </div>
         </div>
 
         <div class="intro-section">
@@ -792,30 +672,34 @@
 
     </div>
     
-      </div>
-    </div>
-
     <script>
         function toggleMobileNav() {
             const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            
             navLinks.classList.toggle('mobile-open');
+            hamburger.classList.toggle('active');
         }
         
         // Close mobile nav when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 const navLinks = document.getElementById('navLinks');
+                const hamburger = document.querySelector('.hamburger');
                 navLinks.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
             });
         });
         
         // Close mobile nav when clicking outside
         document.addEventListener('click', function(event) {
             const navLinks = document.getElementById('navLinks');
-            const navWrapper = document.querySelector('.nav-wrapper');
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('.nav');
             
-            if (!navWrapper.contains(event.target) && navLinks.classList.contains('mobile-open')) {
+            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-open')) {
                 navLinks.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
             }
         });
     </script>

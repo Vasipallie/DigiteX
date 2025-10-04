@@ -18,12 +18,28 @@
   font-family: "Be Vietnam Pro", sans-serif;
   font-weight: 100;
   font-size: 1.2em;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 @media (max-width: 768px) {
   html {
-    padding: 8px;
+    padding: 4px;
     font-size: 1em;
+  }
+  
+  body {
+    overflow-x: hidden;
   }
 }
 
@@ -68,12 +84,6 @@
 
 .hamburger.active span:nth-child(3) {
   transform: rotate(45deg) translate(-5px, -6px);
-}
-
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
 }
 
 .logo {
@@ -124,22 +134,34 @@
   .nav {
     height: auto;
     min-height: 60px;
-    padding: 10px 15px;
+    padding: 10px 10px;
     flex-wrap: wrap;
     gap: 10px;
     border-radius: 15px;
+    max-width: 100%;
+    overflow: hidden;
   }
   
   .logo {
     flex: 1 1 auto;
+    min-width: 0;
   }
   
   .logo img {
-    height: 60px;
+    height: 50px;
+    max-width: 50px;
   }
   
   .logofont {
-    font-size: 1.4em;
+    font-size: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .hamburger {
+    display: flex;
+    flex-shrink: 0;
   }
   
   .nav-links {
@@ -151,6 +173,8 @@
     border-radius: 10px;
     margin-top: 10px;
     gap: 15px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .nav-links.mobile-open {
@@ -163,11 +187,15 @@
     border-bottom: none;
     border-left: 3px solid transparent;
     padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .nav-links a:hover,
   .nav-links a.active {
     border-left-color: #28829e;
+    border-bottom-color: transparent;
   }
 }
 .top{
@@ -230,32 +258,41 @@ button {
     max-width: 90%;
     padding: 30px;
     border-radius: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .textarea {
-    padding: 25px;
+    padding: 20px;
     border-radius: 15px;
     max-width: 95%;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 }
 
 @media (max-width: 480px) {
   .textarea {
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
     max-width: 100%;
+    width: 100%;
+    margin: 0;
   }
   
   .textarea .logofont {
-    font-size: 2.5em !important;
+    font-size: 2.2em !important;
     line-height: 1.1 !important;
-    margin-bottom: 0.8em !important;
+    margin-bottom: 0.6em !important;
+    word-wrap: break-word;
   }
   
   .textarea p:not(.logofont) {
-    font-size: 1.1em;
+    font-size: 1em;
     line-height: 1.4;
+    word-wrap: break-word;
   }
 }
 footer{
@@ -475,140 +512,6 @@ footer{
     }
 }
 
-/* Mission, Vision, Values Section */
-.mvv-section {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    margin-top: 50px;
-}
-
-.mvv-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.mvv-title {
-    font-family: 'digitfont', sans-serif;
-    font-size: 3em;
-    color: #ffffff;
-    margin-bottom: 60px;
-    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-}
-
-.mvv-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-}
-
-.mvv-card {
-    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 40px 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.mvv-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-}
-
-.mvv-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border-color: #555;
-}
-
-.mvv-card:hover::before {
-    transform: translateX(0);
-}
-
-.mvv-icon {
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.mvv-card h3 {
-    font-family: 'digitfont', sans-serif;
-    font-size: 1.8em;
-    color: #ffffff;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
-
-.mvv-card p {
-    color: #cccccc;
-    line-height: 1.6;
-    font-size: 1.1em;
-    margin: 0;
-}
-
-.mission-card {
-    background: linear-gradient(145deg, #1a1a2e, #16213e);
-}
-
-.mission-card .mvv-icon {
-    color: #ff6b6b;
-}
-
-.vision-card {
-    background: linear-gradient(145deg, #0f3460, #16537e);
-}
-
-.vision-card .mvv-icon {
-    color: #4ecdc4;
-}
-
-.values-card {
-    background: linear-gradient(145deg, #2d1b69, #11998e);
-}
-
-.values-card .mvv-icon {
-    color: #45b7d1;
-}
-
-@media (max-width: 768px) {
-    .mvv-section {
-        padding: 60px 15px;
-    }
-    
-    .mvv-title {
-        font-size: 2.2em;
-        margin-bottom: 40px;
-    }
-    
-    .mvv-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .mvv-card {
-        padding: 30px 20px;
-    }
-    
-    .mvv-card h3 {
-        font-size: 1.5em;
-    }
-    
-    .mvv-card p {
-        font-size: 1em;
-    }
-}
-
     </style>
 </head>
 <body>
@@ -623,53 +526,29 @@ footer{
     <span></span>
   </div>
   <nav class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
-    <a href="/" class="active">Home</a>
+    <a href="/">Home</a>
     <a href="/blog">Blog</a>
-    <a href="/contact">Contact Us</a>
+    <a href="/contact" class="active">Contact Us</a>
     <a href="/about">About</a>
     <a href="/login">Login</a>
   </nav>
 </div>
     <div class="top">
         <div class="textarea">
-            <p class="logofont" style="font-size: 4em; margin-bottom:.6em;line-height: 0;">DigiteX</p>
-            <p>Independent tech news at your fingertips</p>
-            <button onclick="location.href='/blog'">Explore Articles</button>
+            <p class="logofont" style="font-size: 4em; margin-bottom:.6em;line-height: 0;">Contact Us</p>
+            <p>Contact us if you want to publish your own article, get interviewed or have any inquiries.</p>
+            <p>Email: wearedigitex@gmail.com</p>
+            <button onclick="location.href='mailto:wearedigitex@gmail.com'">Contact Us</button>
         </div>
     </div>
-
-    <!-- Mission, Vision, Values Section -->
-    <section class="mvv-section">
-        <div class="mvv-container">
-            <h2 class="mvv-title">Our Foundation</h2>
-            <div class="mvv-grid">
-                <div class="mvv-card mission-card">
-                    <span class="mvv-icon">🧑‍🤝‍🧑</span>
-                    <h3>Who are We</h3>
-                    <p>A student-led digital publication uniting voices from different fields to explore how technology is reshaping our world.</p>
-                </div>
-                
-                <div class="mvv-card vision-card">
-                    <span class="mvv-icon">⚡</span>
-                    <h3>What we do</h3>
-                    <p>We publish insights, spotlight innovators, and host creative initiatives that connect students, alumni, and professionals across industries.</p>
-                </div>
-                
-                <div class="mvv-card values-card">
-                    <span class="mvv-icon">🔮</span>
-                    <h3>Vision</h3>
-                    <p>To build a global hub where curiosity meets innovation, and where the next generation of thinkers collaborates to shape the future.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer>
+      
     <hr style="margin-top: 50px; border: 1px solid #333;">
-    <center>
-      <img src="resources/linked.png" alt="LinkedIn" style="height: 30px; margin: 10px; cursor: pointer;" onclick="window.open('https://www.linkedin.com/company/wearedigitex/?viewAsMember=true', '_blank')">
-      <img src="resources/insta.png" alt="Instagram" style="height: 30px; margin: 10px; cursor: pointer;" onclick="window.open('https://www.instagram.com/wearedigitex?igsh=MTM4dWJubno4cW5haA%3D%3D&utm_source=qr', '_blank')">
-    </center>
+    
+      <center>
+        <img src="resources/linked.png" alt="LinkedIn" style="height: 30px; margin: 10px; cursor: pointer;" onclick="window.open('https://www.linkedin.com/company/wearedigitex/?viewAsMember=true', '_blank')">
+        <img src="resources/insta.png" alt="Instagram" style="height: 30px; margin: 10px; cursor: pointer;" onclick="window.open('https://www.instagram.com/wearedigitex?igsh=MTM4dWJubno4cW5haA%3D%3D&utm_source=qr', '_blank')">
+      </center>
     <p style="text-align: center; color: #888; font-size: 0.9em; margin-top: 20px;margin-bottom: 0;">&copy; 2024 DigiteX. All rights reserved.</p>
     <p style="text-align: center; color: #888; font-size: 0.7em; margin-top: 5px;">Developed by Vasipalli Eshan Aditya, Maintained by DigiteX</p>
     </footer>
