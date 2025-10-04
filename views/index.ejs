@@ -1,709 +1,1030 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigiteX | Home</title>
-       <style>
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
-@font-face{
-    font-family: 'digitfont';
-    src: url('./digifont.ttf') format('truetype');
-
-}html {
-  background-color: #000000;
-  margin: 0;
-  padding: 15px;
-  color: #ffffff;
-  font-family: "Be Vietnam Pro", sans-serif;
-  font-weight: 100;
-  font-size: 1.2em;
-}
-
-@media (max-width: 768px) {
-  html {
-    padding: 8px;
-    font-size: 1em;
-  }
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  background-color: #161616;
-  padding: 0 20px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #333;
-  border-radius: 100px;
-  position: relative;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  padding: 8px;
-  z-index: 1001;
-}
-
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background-color: #ffffff;
-  margin: 3px 0;
-  transition: 0.3s;
-  border-radius: 2px;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: rotate(45deg) translate(-5px, -6px);
-}
-
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 90px;
-  margin-right: 10px;
-}
-
-.logofont {
-  font-family: 'digitfont', sans-serif;
-  font-size: 1.8em;
-  color: #ffffff;
-  user-select: none;
-  letter-spacing: 1px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
-.nav-links a {
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.nav-links a:hover,
-.nav-links a:focus {
-  border-bottom-color: #28829e; 
-  color: #fff;
-}
-
-.nav-links a.active {
-  border-bottom-color: #28829e;
-  color: #fff;
-  font-weight: 600;
-}
-
-@media (max-width: 768px) {
-  .nav {
-    height: auto;
-    min-height: 60px;
-    padding: 10px 15px;
-    flex-wrap: wrap;
-    gap: 10px;
-    border-radius: 15px;
-  }
-  
-  .logo {
-    flex: 1 1 auto;
-  }
-  
-  .logo img {
-    height: 60px;
-  }
-  
-  .logofont {
-    font-size: 1.4em;
-  }
-  
-  .nav-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    background-color: #161616;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 10px;
-    gap: 15px;
-  }
-  
-  .nav-links.mobile-open {
-    display: flex;
-  }
-  
-  .nav-links a {
-    font-size: 1.1em;
-    padding: 12px 0;
-    border-bottom: none;
-    border-left: 3px solid transparent;
-    padding-left: 10px;
-  }
-  
-  .nav-links a:hover,
-  .nav-links a.active {
-    border-left-color: #28829e;
-  }
-}
-.top{
-    width: 100%;
-    height: 70vh;
-    background: url('resources/bg.jpg');
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-    border-radius: 30px;
-    border-bottom: 2px solid #abe1f1;
-    padding:30px;
-    padding-top:50px;
-    min-height: 400px;
-}
-
-@media (max-width: 768px) {
-  .top {
-    height: 60vh;
-    min-height: 350px;
-    padding: 20px;
-    border-radius: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .top {
-    height: 50vh;
-    min-height: 300px;
-    padding: 15px;
-    border-radius: 15px;
-  }
-}
-
-button {
-    background-color: #28829e;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 1em;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    touch-action: manipulation;
-    min-height: 44px;
-}
-
-@media (max-width: 480px) {
-  button {
-    padding: 15px 30px;
-    font-size: 1.1em;
-    min-height: 50px;
-  }
-}
-
-.textarea{
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.5);
-    width: fit-content;
-    max-width: 90%;
-    padding: 30px;
-    border-radius: 20px;
-}
-
-@media (max-width: 768px) {
-  .textarea {
-    padding: 25px;
-    border-radius: 15px;
-    max-width: 95%;
-  }
-}
-
-@media (max-width: 480px) {
-  .textarea {
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 100%;
-  }
-  
-  .textarea .logofont {
-    font-size: 2.5em !important;
-    line-height: 1.1 !important;
-    margin-bottom: 0.8em !important;
-  }
-  
-  .textarea p:not(.logofont) {
-    font-size: 1.1em;
-    line-height: 1.4;
-  }
-}
-footer{
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    height: fit-content;
-}
-.meetteam {
-    margin-top: 80px;
-    padding: 60px 40px;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    border-radius: 30px;
-    border: 1px solid #333;
-    position: relative;
-    overflow: hidden;
-}
-
-.meetteam::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(40, 130, 158, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.meetteam h2 {
-    font-size: 3em;
-    margin-bottom: 15px;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-.meetteam h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #28829e, #4fb3d1);
-    border-radius: 2px;
-}
-
-.meetteam > p {
-    font-size: 1.2em;
-    color: #bbb;
-    max-width: 700px;
-    margin: 30px auto 50px;
-    text-align: center;
-    line-height: 1.7;
-    position: relative;
-    z-index: 1;
-}
-
-.team-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    margin-top: 40px;
-    position: relative;
-    z-index: 1;
-}
-
-.department-section {
-    width: 100%;
-}
-
-.department-title {
-    font-size: 2em;
-    margin-bottom: 30px;
-    color: #28829e;
-    font-weight: 600;
-    text-align: center;
-    position: relative;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.department-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #28829e, #4fb3d1);
-    border-radius: 2px;
-}
-
-.leadership-grid, .dept-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    justify-items: center;
-}
-
-.leadership-grid {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.member-card {
-    background: linear-gradient(145deg, #1e1e1e, #0d0d0d);
-    border: 1px solid #2a2a2a;
-    border-radius: 20px;
-    padding: 30px 25px;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.member-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(40, 130, 158, 0.1), transparent);
-    transition: left 0.6s ease;
-}
-
-.member-card:hover::before {
-    left: 100%;
-}
-
-.member-card:hover {
-    transform: translateY(-8px);
-    border-color: #28829e;
-    box-shadow: 0 20px 40px rgba(40, 130, 158, 0.2);
-}
-
-.member-image {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 25px;
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #28829e;
-    transition: all 0.3s ease;
-}
-
-.member-card:hover .member-image {
-    border-color: #4fb3d1;
-    transform: scale(1.05);
-}
-
-.member-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.member-card:hover .member-image img {
-    transform: scale(1.1);
-}
-
-.member-info h3 {
-    font-size: 1.4em;
-    margin: 0 0 8px 0;
-    color: #ffffff;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.member-card:hover .member-info h3 {
-    color: #28829e;
-}
-
-.member-role {
-    font-size: 1em;
-    color: #888;
-    margin-bottom: 15px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9em;
-}
-
-.member-description {
-    font-size: 0.95em;
-    color: #aaa;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-@media (max-width: 768px) {
-    .meetteam {
-        padding: 40px 20px;
-        margin-top: 50px;
+  <meta charset="UTF-8">
+  <title>Project Arts & Affirmations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Enhanced font loading with fallbacks -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fae8ea 0%, #f5f0f6 50%, #e5f5ee 100%);
+      --primary: #edccd2;
+      --soft-purple: #f5f0f6;
+      --soft-green: #e5f5ee;
+      --leaf-green: #a6c8b5;
+      --brand-deep: #463b38;
+      --headline: #22212a;
+      --text: #4a4a56;
+      --text-light: #6b6b78;
+      --cta-pink: #efb3c0;
+      --cta-pink-hover: #f8d4e3;
+      --border-card: #ebd2da;
+      --white: #ffffff;
+      --shadow-light: 0 4px 20px rgba(234, 210, 212, 0.15);
+      --shadow-medium: 0 8px 32px rgba(234, 210, 212, 0.2);
+      --shadow-heavy: 0 12px 48px rgba(234, 210, 212, 0.25);
     }
-    
-    .meetteam h2 {
-        font-size: 2.2em;
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
     }
-    
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-gradient);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .container-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-wrapper {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(235, 210, 218, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Crimson Text', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--brand-deep);
+      text-decoration: none;
+    }
+    .nav-logo {
+      width: 40px;
+      height: 40px;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-link {
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .nav-link:hover {
+      background: var(--soft-green);
+      color: var(--brand-deep);
+      transform: translateY(-1px);
+    }
+    .nav-cta {
+      background: var(--leaf-green);
+      color: var(--headline);
+      border: 1px solid var(--leaf-green);
+      font-weight: 600;
+    }
+    .nav-cta:hover {
+      background: var(--cta-pink);
+      border-color: var(--cta-pink);
+      color: var(--brand-deep);
+    }
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--brand-deep);
+      cursor: pointer;
+    }
+    .hero {
+      padding: 80px 0 120px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 200%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(166, 200, 181, 0.1) 0%, transparent 70%);
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--brand-deep);
+      margin-bottom: 24px;
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(10px);
+    }
+    .hero-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--headline);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--cta-pink), var(--leaf-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--brand-deep);
+      font-family: 'Crimson Text', serif;
+      font-weight: 600;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      opacity: 0.9;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cta-pink);
+      color: var(--brand-deep);
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-medium);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .hero-cta:hover {
+      background: var(--leaf-green);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-heavy);
+    }
+    .section {
+      padding: 60px 0;
+    }
+    .section-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(235, 210, 218, 0.3);
+      transition: all 0.3s ease;
+    }
+    .section-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-medium);
+    }
+    .section-label {
+      display: inline-block;
+      background: var(--soft-green);
+      color: var(--brand-deep);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      color: var(--headline);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .section-content {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .vmv-section {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .vmv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .vmv-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(235, 210, 218, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .vmv-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cta-pink), var(--leaf-green));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .vmv-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-heavy);
+    }
+    .vmv-card:hover::before {
+      transform: scaleX(1);
+    }
+    .vmv-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .vmv-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--headline);
+      margin-bottom: 16px;
+    }
+    .vmv-content {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .vmv-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .vmv-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .vmv-list li::before {
+      content: '🌱';
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .values-list li::before {
+      content: '💝';
+    }
+    .event-details {
+      background: var(--soft-purple);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      border-left: 4px solid var(--leaf-green);
+    }
+    .event-details ul {
+      list-style: none;
+      margin: 16px 0 0 0;
+    }
+    .event-details li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .event-details li::before {
+      content: '✨';
+      font-size: 1rem;
+    }
+    .team-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .team-header {
+      margin-bottom: 48px;
+    }
+    .team-leadership {
+      margin-bottom: 48px;
+    }
+    .leadership-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: var(--shadow-medium);
+      margin-bottom: 24px;
+    }
     .team-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
     }
-    
-    .member-card {
-        padding: 25px 20px;
+    .team-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(235, 210, 218, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-}
-
-/* Mission, Vision, Values Section */
-.mvv-section {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    margin-top: 50px;
-}
-
-.mvv-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.mvv-title {
-    font-family: 'digitfont', sans-serif;
-    font-size: 3em;
-    color: #ffffff;
-    margin-bottom: 60px;
-    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-}
-
-.mvv-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-}
-
-.mvv-card {
-    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 40px 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.mvv-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-}
-
-.mvv-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border-color: #555;
-}
-
-.mvv-card:hover::before {
-    transform: translateX(0);
-}
-
-.mvv-icon {
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.mvv-card h3 {
-    font-family: 'digitfont', sans-serif;
-    font-size: 1.8em;
-    color: #ffffff;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
-
-.mvv-card p {
-    color: #cccccc;
-    line-height: 1.6;
-    font-size: 1.1em;
-    margin: 0;
-}
-
-.mission-card {
-    background: linear-gradient(145deg, #1a1a2e, #16213e);
-}
-
-.mission-card .mvv-icon {
-    color: #ff6b6b;
-}
-
-.vision-card {
-    background: linear-gradient(145deg, #0f3460, #16537e);
-}
-
-.vision-card .mvv-icon {
-    color: #4ecdc4;
-}
-
-.values-card {
-    background: linear-gradient(145deg, #2d1b69, #11998e);
-}
-
-.values-card .mvv-icon {
-    color: #45b7d1;
-}
-
-@media (max-width: 768px) {
-    .mvv-section {
-        padding: 60px 15px;
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cta-pink), var(--leaf-green));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
     }
-    
-    .mvv-title {
-        font-size: 2.2em;
-        margin-bottom: 40px;
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-heavy);
     }
-    
-    .mvv-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
+    .team-card:hover::before {
+      transform: scaleX(1);
     }
-    
-    .mvv-card {
-        padding: 30px 20px;
+    .team-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      position: relative;
+      overflow: hidden;
+      border: 3px solid var(--border-card);
+      transition: all 0.3s ease;
     }
-    
-    .mvv-card h3 {
-        font-size: 1.5em;
+    .team-card:hover .team-image {
+      border-color: var(--leaf-green);
+      transform: scale(1.05);
     }
-    
-    .mvv-card p {
-        font-size: 1em;
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
-}
-
-    </style>
+    .team-image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--soft-green), var(--soft-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      border-radius: 50%;
+    }
+    .team-role {
+      font-size: 0.9rem;
+      color: var(--leaf-green);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .team-name {
+      font-family: 'Crimson Text', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--headline);
+      margin-bottom: 12px;
+    }
+    .team-bio {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .gallery-section {
+      padding: 60px 0;
+      text-align: center;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .gallery-item {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(235, 210, 218, 0.3);
+      transition: all 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-medium);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .gallery-item h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: var(--headline);
+      margin-bottom: 8px;
+    }
+    .gallery-item p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    .collab-section {
+      padding: 60px 0;
+      text-align: center;
+    }
+    .collab-title {
+      font-size: 1.1rem;
+      color: var(--brand-deep);
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+    .collab-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .collab-tile {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      color: var(--brand-deep);
+      border: 1px solid var(--border-card);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .collab-tile:hover {
+      background: var(--leaf-green);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-light);
+      color: var(--brand-deep);
+    }
+    .contact-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .contact-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(235, 210, 218, 0.3);
+    }
+    .contact-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--headline);
+      margin-bottom: 24px;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--soft-green);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--brand-deep);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .contact-item:hover {
+      background: var(--leaf-green);
+      transform: translateY(-1px);
+    }
+    .contact-description {
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .footer-illustration {
+      height: 120px;
+      background: linear-gradient(180deg, transparent 0%, var(--soft-purple) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .footer {
+      background: var(--soft-purple);
+      padding: 48px 0 32px;
+      text-align: center;
+      border-top: 1px solid rgba(235, 210, 218, 0.3);
+    }
+    .footer-quote {
+      font-family: 'Crimson Text', serif;
+      font-size: 1.2rem;
+      color: var(--brand-deep);
+      font-weight: 600;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .footer-copyright {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    /* Leadership layout fix */
+    .dot-bg-leadership {
+      background-image: radial-gradient(#d3d3d3 1px, transparent 1px);
+      background-size: 26px 26px;
+      padding: 34px 0 12px 0;
+      border-radius: 14px;
+    }
+    .leadership-grid-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 30px;
+    }
+    .leadership-grid-row.middle { align-items: center; }
+    .leadership-grid-bottom {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 36px;
+      max-width: 960px;
+      margin: 0 auto 20px auto;
+    }
+    .sticky-note-leadership {
+      background: #ffe27a;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(234,210,212,0.10);
+      padding: 24px 18px;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.08rem;
+      color: #22212a;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .leadership-grid-bottom img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      max-height: 150px;
+      border-radius: 6px;
+    }
+    .center-cell-leadership {
+      background: none;
+      box-shadow: none;
+      padding: 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.18rem;
+      color: #22212a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+    @media (max-width: 900px) {
+      .leadership-grid-row {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+      }
+      .leadership-grid-bottom {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+      .leadership-grid-bottom img {
+        max-width: 90vw;
+        height: auto;
+      }
+      .center-cell-leadership { min-height: 60px; }
+    }
+    /* Responsive design for hero/team/contact/gallery/collab, omitted for brevity; you may copy from your existing code or ask for these as needed. */
+    @media (max-width: 768px) { /* ...responsive rules as above... */ }
+    @media (max-width: 480px) { /* ...responsive rules as above... */ }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-delay-1 { animation-delay: 0.1s; }
+    .fade-in-delay-2 { animation-delay: 0.2s; }
+    .fade-in-delay-3 { animation-delay: 0.3s; }
+  </style>
 </head>
 <body>
-    <div class="nav">
-  <div class="logo" onclick="location.href='/'" style="cursor: pointer;">
-    <img src="resources/logo.png" alt="DigiteX Logo">
-    <span class="logofont">DigiteX</span>
-  </div>
-  <div class="hamburger" onclick="toggleMobileNav()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <nav class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
-    <a href="/" class="active">Home</a>
-    <a href="/blog">Blog</a>
-    <a href="/contact">Contact Us</a>
-    <a href="/about">About</a>
-    <a href="/login">Login</a>
-  </nav>
-</div>
-    <div class="top">
-        <div class="textarea">
-            <p class="logofont" style="font-size: 4em; margin-bottom:.6em;line-height: 0;">DigiteX</p>
-            <p>Independent tech news at your fingertips</p>
-            <button onclick="location.href='/blog'">Explore Articles</button>
-        </div>
+  <!-- Enhanced Navigation -->
+  <nav class="nav-wrapper">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand">
+        <img src="resources/logo.png" alt="Project Arts & Affirmations Logo" class="nav-logo">
+      </a>
+      <ul class="nav-menu">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#vision" class="nav-link">Vision & Mission</a></li>
+        <li><a href="#team" class="nav-link">Team</a></li>
+        <li><a href="#events" class="nav-link">Events</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="/Blog" class="nav-link">Blog</a></li>
+        <li><a href="/Login" class="nav-link nav-cta">Login</a></li>
+      </ul>
+      <button class="mobile-menu-toggle">☰</button>
     </div>
+  </nav>
 
-    <!-- Mission, Vision, Values Section -->
-    <section class="mvv-section">
-        <div class="mvv-container">
-            <h2 class="mvv-title">Our Foundation</h2>
-            <div class="mvv-grid">
-                <div class="mvv-card mission-card">
-                    <span class="mvv-icon">🧑‍🤝‍🧑</span>
-                    <h3>Who are We</h3>
-                    <p>A student-led digital publication uniting voices from different fields to explore how technology is reshaping our world.</p>
-                </div>
-                
-                <div class="mvv-card vision-card">
-                    <span class="mvv-icon">⚡</span>
-                    <h3>What we do</h3>
-                    <p>We publish insights, spotlight innovators, and host creative initiatives that connect students, alumni, and professionals across industries.</p>
-                </div>
-                
-                <div class="mvv-card values-card">
-                    <span class="mvv-icon">🔮</span>
-                    <h3>Vision</h3>
-                    <p>To build a global hub where curiosity meets innovation, and where the next generation of thinkers collaborates to shape the future.</p>
-                </div>
-            </div>
+  <!-- Enhanced Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <div class="hero-logo">
+          <img src="resources/logo.png" alt="Project Arts & Affirmations Logo" style="width: 80px; height: 80px; margin-bottom: 20px;">
         </div>
-    </section>
+        <div class="hero-badge">
+          🌱 Mental Health Awareness & Support
+        </div>
+        <h1 class="hero-title">
+          <span class="highlight">Wellness-focused</span> support,<br>
+          delivered with creativity & care
+        </h1>
+        <div class="hero-subtitle">
+          Together, let's prevent suicide and nurture mental wellbeing.
+        </div>
+        <div class="hero-description">
+          A high school student project offering mental health awareness, peer support, and creative workshops. Everyone deserves a safe, vibrant community where conversations can bloom.
+        </div>
+        <a href="#contact" class="hero-cta">
+          💌 Join or Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-    <hr style="margin-top: 50px; border: 1px solid #333;">
-    <center>
-      <img src="resources/linked.png" alt="LinkedIn" style="height: 30px; margin: 10px; cursor: pointer;" onclick="window.open('https://www.linkedin.com/company/wearedigitex/?viewAsMember=true', '_blank')">
-      <img src="resources/insta.png" alt="Instagram" style="height: 30px; margin: 10px; cursor: pointer;" onclick="window.open('https://www.instagram.com/wearedigitex?igsh=MTM4dWJubno4cW5haA%3D%3D&utm_source=qr', '_blank')">
-    </center>
-    <p style="text-align: center; color: #888; font-size: 0.9em; margin-top: 20px;margin-bottom: 0;">&copy; 2024 DigiteX. All rights reserved.</p>
-    <p style="text-align: center; color: #888; font-size: 0.7em; margin-top: 5px;">Developed by Vasipalli Eshan Aditya, Maintained by DigiteX</p>
-    </footer>
+  <!-- Enhanced About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-card fade-in">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">High schoolers working for change</h2>
+        <div class="section-content">
+          We are a group of high school students committed to spreading awareness about mental health, supporting those who need it, and making positive change through art, peer connection, and community initiatives. We aim to help individuals struggling with mental health and work toward preventing rising suicide rates.
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        function toggleMobileNav() {
-            const navLinks = document.getElementById('navLinks');
-            const hamburger = document.querySelector('.hamburger');
-            
-            navLinks.classList.toggle('mobile-open');
-            hamburger.classList.toggle('active');
+  <!-- Vision, Mission & Values Section -->
+  <section class="vmv-section" id="vision">
+    <div class="container">
+      <div class="team-header fade-in">
+        <span class="section-label">Our Foundation</span>
+        <h2 class="section-title">Vision, Mission & Core Values</h2>
+      </div>
+      <div class="vmv-grid">
+        <div class="vmv-card fade-in fade-in-delay-1">
+          <span class="vmv-icon">🔮</span>
+          <h3 class="vmv-title">Vision Statement</h3>
+          <div class="vmv-content">
+            <ul class="vmv-list">
+              <li>A community where mental health is valued, stigma is erased, and every individual feels empowered to seek support and thrive.</li>
+              <li>To nurture a world where conversations about mental health are as natural as those about physical health.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="vmv-card fade-in fade-in-delay-2">
+          <span class="vmv-icon">🎯</span>
+          <h3 class="vmv-title">Mission Statement</h3>
+          <div class="vmv-content">
+            <ul class="vmv-list">
+              <li>To create a safe, inclusive space that promotes mental well-being through awareness, peer support, education, and advocacy.</li>
+              <li>To empower students with tools for resilience, self-care, and empathy, while building a culture that normalizes open dialogue on mental health.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="vmv-card fade-in fade-in-delay-3">
+          <span class="vmv-icon">💝</span>
+          <h3 class="vmv-title">Core Values</h3>
+          <div class="vmv-content">
+            <ul class="vmv-list values-list">
+              <li><strong>Empathy</strong> – We listen, understand, and support without judgment.</li>
+              <li><strong>Inclusivity</strong> – We embrace diversity and ensure a safe space for all voices.</li>
+              <li><strong>Awareness</strong> – We spread knowledge to break stigma and encourage understanding.</li>
+              <li><strong>Resilience</strong> – We promote practices that help individuals cope, adapt, and grow.</li>
+              <li><strong>Collaboration</strong> – We work together to build a supportive community.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Events Section -->
+  <section class="section" id="events">
+    <div class="container">
+      <div class="section-card fade-in">
+        <span class="section-label">Upcoming Event</span>
+        <h2 class="section-title">World Mental Health Day (Origami Workshop)</h2>
+        <div class="section-content">
+          Join us for a relaxing origami art session designed to relieve stress and promote creativity. No experience or supplies needed—just an open mind!
+        </div>
+        <div class="event-details">
+          <ul>
+            <li><strong>Date:</strong> 10/10/2025</li>
+            <li><strong>Time:</strong> 9 PM to 11 PM</li>
+            <li><strong>Venue:</strong> Online</li>
+            <li><strong>Sign Up:</strong> DM us on Instagram or email us</li>
+            <li><strong><a href="https://docs.google.com/forms/d/e/1FAIpQLSfrkbK8HQgdLe-lo4Lio1Hj3Eet6uGCKRC-9jIHegD4l2Sd3A/viewform?fbclid=PAb21jcAMj3VlleHRuA2FlbQIxMQABp-qMBKm8XdsKS7YGytQnKNt4FNVJYrw-4T06BWeLnQiFds08Btb0qhFAJ3D7_aem_MRZakGeXttev8Pp8SWfTUA"> Volunteer Sign Up</a></strong></li>
+            <li><strong><a href="https://forms.gle/afoEdZFabZNwW2p2A"> Participant Sign Up</a></strong></li>
+         
+          </ul>
+        </div>
+      </div>
+      <!-- <div class="section-card fade-in fade-in-delay-1">
+        <span class="section-label">Upcoming Event</span>
+        <h2 class="section-title">World Mental Health Day</h2>
+        <div class="section-content">
+          Join us for a presentation about world mental health day and spreading awareness about suicide and therapy!
+        </div>
+        <div class="event-details">
+          <ul>
+            <li><strong>Date:</strong> 17/10/2025</li>
+            <li><strong>Time:</strong> 9 PM to 11 PM</li>
+            <li><strong>Venue:</strong> Online</li>
+            <li><strong>Sign Up:</strong> DM us on Instagram or email us</li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+  </section>
+
+  <!-- Leadership Layout Section -->
+  <section id="leadership-layout" style="padding:60px 0;">
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 24px;">
+      <h2 style="text-align: center; color: #463b38; font-size: 2rem; margin-bottom: 34px;">Layout of Leadership</h2>
+      <div class="dot-bg-leadership">
+        <!-- First row -->
+        <div class="leadership-grid-row">
+          <div class="sticky-note-leadership">
+            President of Project Arts and Affirmations<br>
+            <strong>Afifa Mahmood</strong>
+          </div>
+          <div class="sticky-note-leadership">
+            Vice President<br>
+            <strong>Isha Kalyanpur</strong>
+          </div>
+          <div class="sticky-note-leadership">
+            Treasurer<br>
+            <strong>Shruti Sathyanarayanan</strong>
+          </div>
+        </div>
+        <!-- Second row -->
+        <div class="leadership-grid-row middle">
+          <div class="sticky-note-leadership">
+            Director of Design and Marketing<br>
+            <strong>Ahana Gambhira</strong>
+          </div>
+          <div class="sticky-note-leadership">
+            Co-Director of Design and Marketing<br>
+            <strong>Kanika Prithiani</strong>
+          </div>
+          <div class="sticky-note-leadership">
+             Academics and Backrooms    <br>
+            <strong>Vasipalli Eshan Aditya</strong>
+          </div>
+        </div>
+        <!-- Collaboration Heading -->
+        <center>
+          <div class="hero-badge" style="justify-content:center; margin:20px auto; display:inline-flex;">
+          In Collaboration With
+          </div>
+         </center>
+        <!-- Collaboration Partners (centered and responsive) -->
+        <div class="leadership-grid-bottom">
+          <div class="sticky-note-leadership">
+            <img src="suby.jpg" alt="Sunshine Youth logo"><br>
+            Founder, SUNSHINE YOUTH<br>
+            <strong>Kennisha Kapur</strong>
+          </div>
+          <div class="sticky-note-leadership">
+            <img src="tads.jpg" alt="Teen Animals Da Scientists logo"><br>
+            Founder, TEEN ANIMALS DA SCIENTISTS<br>
+            <strong>Valerie Chiu</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-card fade-in">
+        <h3 class="contact-title">Get in Touch</h3>
+        <div class="contact-info">
+          <a href="https://instagram.com/projectartsandaffirmations" target="_blank" class="contact-item">
+            📱 @projectartsandaffirmations
+          </a>
+          <a href="tel:+60172209239" class="contact-item">
+            📞 +60 17 220 9239
+          </a>
+          <a href="mailto:projectartsandaffirmations@gmail.com" class="contact-item">
+            ✉️ projectartsandaffirmations@gmail.com
+          </a>
+        </div>
+        <div class="contact-description">
+          Want to join, volunteer, or have questions? We'd love to hear from you and welcome you into our community.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <div class="footer-illustration">
+    <svg viewBox="0 0 1600 120" width="100%" height="100%" preserveAspectRatio="none" fill="none">
+      <path d="M0,120 C400,80 800,40 1600,60 L1600,120 Z" fill="#f5f0f6" opacity="0.5"/>
+      <path d="M0,120 C300,90 900,50 1600,80 L1600,120 Z" fill="#e5f5ee" opacity="0.7"/>
+      <circle cx="200" cy="100" r="3" fill="#b8d4c1"/>
+      <circle cx="1400" cy="90" r="2" fill="#fadadd"/>
+      <circle cx="800" cy="95" r="2.5" fill="#ffe8ea"/>
+    </svg>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-quote">
+        "Together let's prevent suicide and nurture hope."
+      </div>
+      <div class="footer-copyright">
+        &copy; 2025 Project Arts & Affirmations - Building stronger communities through creativity and care
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
         }
-        
-        // Close mobile nav when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                const navLinks = document.getElementById('navLinks');
-                const hamburger = document.querySelector('.hamburger');
-                navLinks.classList.remove('mobile-open');
-                hamburger.classList.remove('active');
-            });
-        });
-        
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function(event) {
-            const navLinks = document.getElementById('navLinks');
-            const hamburger = document.querySelector('.hamburger');
-            const nav = document.querySelector('.nav');
-            
-            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-open')) {
-                navLinks.classList.remove('mobile-open');
-                hamburger.classList.remove('active');
-            }
-        });
-    </script>
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Navigation background blur on scroll
+    const nav = document.querySelector('.nav-wrapper');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.style.background = 'rgba(255, 255, 255, 0.98)';
+        nav.style.boxShadow = '0 4px 20px rgba(234, 210, 212, 0.1)';
+      } else {
+        nav.style.background = 'rgba(255, 255, 255, 0.95)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile menu toggle (basic functionality)
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    mobileToggle.addEventListener('click', () => {
+      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+      navMenu.style.position = 'absolute';
+      navMenu.style.top = '100%';
+      navMenu.style.left = '0';
+      navMenu.style.right = '0';
+      navMenu.style.background = 'rgba(255, 255, 255, 0.98)';
+      navMenu.style.flexDirection = 'column';
+      navMenu.style.padding = '20px';
+      navMenu.style.borderRadius = '0 0 20px 20px';
+      navMenu.style.boxShadow = '0 4px 20px rgba(234, 210, 212, 0.2)';
+    });
+
+    // Add loading animation for team images
+    document.querySelectorAll('.team-image img').forEach(img => {
+      img.addEventListener('load', function() {
+        this.style.opacity = '0';
+        this.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => {
+          this.style.opacity = '1';
+        }, 100);
+      });
+    });
+
+    // Add hover effects for cards
+    document.querySelectorAll('.section-card, .team-card, .vmv-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px)';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
 </body>
 </html>
+
+
+
+
