@@ -399,7 +399,7 @@ footer{
 }
 
 .leadership-grid {
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -507,8 +507,22 @@ footer{
         gap: 25px;
     }
     
+    .leadership-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 100%;
+    }
+    
     .member-card {
         padding: 25px 20px;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 769px) {
+    .leadership-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        max-width: 700px;
     }
 }
 
@@ -567,6 +581,17 @@ footer{
                         <div class="member-description">Working with Tech & Hardware for 6 years, Eshan is passionate about building innovative solutions and exploring the latest trends in technology.</div>
                     </div>
                 </div>
+                
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="images/irag.jpg" alt="Iraj Gupta">
+                    </div>
+                    <div class="member-info">
+                        <h3>Iraj Gupta</h3>
+                        <div class="member-role">Secretary</div>
+                        <div class="member-description">Hi, I’m Iraj, an aspiring doctor with a deep passion for medicine, particularly in the fields of diabetes and stem cell research through the lens of genetics. I enjoy diving into medical textbooks for fun (yes, really!), always eager to learn something new. In my downtime, you’ll often find me watching accurate medical dramas like The Good Doctor.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -596,6 +621,18 @@ footer{
                         <div class="member-description">Hi! I'm a writer focused on artificial intelligence, merging my love for machine learning, programming, and computer science with storytelling. A Marvel fan and sports enthusiast, I love bringing creativity and curiosity into everything I write. Whether it's coding or writing, I aim to make complex ideas engaging, accessible and fun.</div>
                     </div>
                 </div>
+                
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="images/panda.jpg" alt="Gayatri Pandkar">
+                    </div>
+                    <div class="member-info">
+                        <h3>Gayatri Pandkar</h3>
+                        <div class="member-role">Technology Lead</div>
+                        <div class="member-description">Hello! I'm Gayatri, a physics enthusiast who's fascinated by developments in technology, specifically in robotics, generative AI, blockchains & cybersecurity. Outside of academics, I'm an artist who's curious about game design & mechanics and loves to break down some of the most interesting concepts into simpler bits to get down to the fundamentals.</div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -616,12 +653,12 @@ footer{
 
                 <div class="member-card">
                     <div class="member-image">
-                        <img src="images/irag.jpg" alt="Iraj Gupta">
+                        <img src="images/mans.jpg" alt="Maanya Ramesh">
                     </div>
                     <div class="member-info">
-                        <h3>Iraj Gupta</h3>
+                        <h3>Maanya Ramesh</h3>
                         <div class="member-role">Medicine Lead</div>
-                        <div class="member-description">Hi, I’m Iraj, an aspiring doctor with a deep passion for medicine, particularly in the fields of diabetes and stem cell research through the lens of genetics. I enjoy diving into medical textbooks for fun (yes, really!), always eager to learn something new. In my downtime, you’ll often find me watching accurate medical dramas like The Good Doctor.</div>
+                        <div class="member-description">Hi! I’m Maanya, a hard core medical lover at heart, with a keen interest in the fields of cardiology and pathology. You can easily find me scrolling through reels and reading books related to medicine, losing track of time as I immerse myself into a new realm of thoughts. I’m curious and excited to discover technology’s impact on today’s medical industry, and its possible influence on the future of medicine.</div>
                     </div>
                 </div>
                 
@@ -663,6 +700,19 @@ footer{
                         <div class="member-description">Having been interested in Business and Economics for multiple years, Madhav is interested in exploring how their worlds collide with recent developments in AI and Tech.</div>
                     </div>
                 </div>
+                
+                
+                <div class="member-card">
+                    <div class="member-image">
+                        <img src="images/dash.jpg" alt="Akshit Dash">
+                    </div>
+                    <div class="member-info">
+                        <h3>Akshit Dash</h3>
+                        <div class="member-role">Commerce Lead</div>
+                        <div class="member-description">Hi! I’m Akshit, a commerce enthusiast with a keen interest in the intersection of business and technology. I love exploring how emerging technologies are reshaping the business landscape and am excited to share my insights through articles and discussions.</div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
