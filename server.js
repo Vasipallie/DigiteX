@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import cron from 'node-cron';
 import { Console, time } from 'console';
 import dotenv from 'dotenv'; 
+import multer from 'multer'; 
 
 dotenv.config();
 
@@ -22,6 +23,12 @@ const supakey = process.env.SUPAKEY ;
 // Supabase setup
 //WARNING - DO NOT PUBLISH Api Keys VIA GITHUB OR ANY PUBLIC REPOSITORY
 const supabase = createClient(supalink, supakey); 
+
+// Multer setup for file uploads
+const upload = multer({
+    dest: path.join(__dirname, 'views', 'images'),
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+}); 
 
 
 // Middleware data stuff, important for app to run
@@ -469,6 +476,43 @@ app.route('/about').get((req, res) => {
     res.render('about');
 }
 );
+
+// Upload page
+app.get('/upload', (req, res) => {
+    res.render('upload');
+});
+
+// File upload route
+app.post('/upload-file', upload.single('file'), async (req, res) => {
+    try {
+        // Check authentication
+        const session = req.cookies.session;
+        if (!session) {
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+
+        const { data: { user } } = await supabase.auth.getUser(session.access_token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid session' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'No file uploaded' });
+        }
+
+        // Generate the file URL
+        const fileUrl = `/images/${req.file.filename}`;
+
+        res.json({ 
+            success: true, 
+            message: 'File uploaded successfully', 
+            fileUrl: fileUrl 
+        });
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
 
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
