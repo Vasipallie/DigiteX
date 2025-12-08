@@ -3,165 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload</title>
+    <title>Image Upload | DigiteX</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .upload-container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        .upload-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .file-input {
-            padding: 10px;
-            border: 2px dashed #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-        .file-input:hover {
-            border-color: #999;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 4px;
-            display: none;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .link-container {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        .link {
-            word-break: break-all;
-            font-family: monospace;
-        }
-        .copy-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .copy-btn:hover {
-            background-color: #218838;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap');
+@font-face {
+    font-family: 'digitfont';
+    src: url('./digifont.ttf') format('truetype');
+}
+html {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 100;
+    font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 1em;
+    }
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+}
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 240px;
+    background: linear-gradient(160deg, #181c22 60%, #222831 100%);
+    padding: 32px 0 24px 0;
+    box-sizing: border-box;
+    border-right: 1.5px solid #222b;
+    border-radius: 0 30px 30px 0;
+    min-height: 100vh;
+    box-shadow: 2px 0 16px 0 #0006;
+    gap: 36px;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.logo img {
+    height: 60px;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 2px 8px #0008);
+}
+.logofont {
+    font-family: 'digitfont', sans-serif;
+    font-size: 2em;
+    color: #fff;
+    user-select: none;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 0 2px 8px #0006;
+}
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: stretch;
+    margin-top: 10px;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #b3e5fc;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.13em;
+    padding: 12px 0 12px 32px;
+    border-left: 4px solid transparent;
+    border-radius: 8px 0 0 8px;
+    background: none;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    box-sizing: border-box;
+    position: relative;
+}
+.nav-link:hover,
+.nav-link:focus {
+    border-left-color: #28829e;
+    color: #fff;
+    background: #232b3b;
+}
+.nav-link.active {
+    border-left-color: #28829e;
+    color: #fff;
+    font-weight: 600;
+    background: #232b3b;
+}
+.nav-link .icon {
+    font-size: 1.2em;
+    width: 1.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+}
+
+@media (max-width: 900px) {
+    .sidebar { width: 70px; min-width: 60px; padding: 10px 0; }
+    .logo img { height: 40px; }
+    .logofont { font-size: 1em; }
+    .nav-link { font-size: 0.9em; padding: 8px 0 8px 10px; gap: 6px; }
+    .nav-link .icon { width: 1em; }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        min-width: 100%;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-height: auto;
+        height: auto;
+        padding: 10px 15px;
+        border-radius: 0;
+        border-right: none;
+        border-bottom: 1.5px solid #222b;
+        gap: 10px;
+        overflow-x: hidden;
+    }
+
+    .logo {
+        flex-direction: row;
+        margin-bottom: 0;
+        gap: 8px;
+        flex-shrink: 0;
+        min-width: 0;
+    }
+
+    .logo img {
+        height: 40px;
+        width: 40px;
+        flex-shrink: 0;
+    }
+
+    .logofont {
+        font-size: 1.2em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 0;
+        width: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 5px 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #28829e transparent;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .nav-links::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .nav-links::-webkit-scrollbar-thumb {
+        background: #28829e;
+        border-radius: 2px;
+    }
+
+    .nav-links::-webkit-scrollbar-thumb:hover {
+        background: #3a9cb8;
+    }
+
+    .nav-link {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: none;
+        background: rgba(40, 130, 158, 0.1);
+        font-size: 0.85em;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: fit-content;
+    }
+
+    .nav-link.active {
+        background: #28829e;
+        border-left: none;
+    }
+
+    .main {
+        padding: 15px;
+    }
+}
+
+.main {
+    padding: 20px;
+    width: 100%;
+    flex: 1;
+}
+
+.upload-container {
+    background-color: #161616;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.file-input {
+    padding: 20px;
+    border: 2px dashed #28829e;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    background: rgba(40, 130, 158, 0.05);
+    transition: border-color 0.3s, background 0.3s;
+    font-size: 1.1em;
+    color: #b3e5fc;
+}
+
+.file-input:hover {
+    border-color: #3a9cb8;
+    background: rgba(40, 130, 158, 0.1);
+}
+
+button {
+    background-color: #28829e;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #218ca8;
+    box-shadow: 0 4px 15px rgba(40, 130, 158, 0.3);
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    background-color: #444;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+    font-size: 1em;
+}
+
+.success {
+    background-color: rgba(40, 130, 158, 0.1);
+    color: #b3e5fc;
+    border: 1px solid #28829e;
+}
+
+.error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #ff6b7d;
+    border: 1px solid #dc3545;
+}
+
+.link-container {
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid #333;
+}
+
+.link {
+    word-break: break-all;
+    font-family: monospace;
+    font-size: 0.9em;
+    color: #b3e5fc;
+    background: #0a0a0a;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.copy-btn {
+    background-color: #28829e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.copy-btn:hover {
+    background-color: #218ca8;
+}
+
+.usage-example {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-family: monospace;
+    font-size: 0.9em;
+    border: 1px solid #333;
+}
+
+.usage-example h3 {
+    margin-top: 0;
+    color: #28829e;
+    font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 15px;
+    }
+
+    .upload-container {
+        padding: 30px 20px;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .file-input {
+        padding: 15px;
+        font-size: 1em;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 1em;
+    }
+}
     </style>
 </head>
 <body>
-    <div class="upload-container">
-        <h1>Upload File</h1>
-        <form id="uploadForm" class="upload-form" enctype="multipart/form-data">
-            <input type="file" id="fileInput" name="file" class="file-input" required>
-            <button type="submit" id="uploadBtn">Upload File</button>
-        </form>
-        <div id="result" class="result"></div>
+    <div class="sidebar">
+        <div class="logo" onclick="location.href='/'">
+            <img src="resources/logo.png" alt="DigiteX Logo">
+            <span class="logofont">DigiteX</span>
+        </div>
+        <nav class="nav-links" role="navigation" aria-label="Primary">
+            <a href="authorportal" class="nav-link"><span class="icon">🏠</span>Dashboard</a>
+            <a href="New" class="nav-link"><span class="icon">📝</span>New Post</a>
+            <a href="upload" class="nav-link active"><span class="icon">📤</span>Upload</a>
+        </nav>
+    </div>
+
+    <div class="main">
+        <div class="upload-container">
+            <h1>Upload Image</h1>
+            <form id="uploadForm" class="upload-form" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="image" accept="image/*" class="file-input" required>
+                <button type="submit" id="uploadBtn">Upload Image</button>
+            </form>
+            <div id="result" class="result"></div>
+        </div>
     </div>
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const fileInput = document.getElementById('fileInput');
             const uploadBtn = document.getElementById('uploadBtn');
             const resultDiv = document.getElementById('result');
-            
+
             if (!fileInput.files[0]) {
-                showResult('Please select a file to upload.', 'error');
+                showResult('Please select an image to upload.', 'error');
                 return;
             }
-            
+
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-            
+            formData.append('image', fileInput.files[0]);
+
             uploadBtn.disabled = true;
             uploadBtn.textContent = 'Uploading...';
-            
+
             try {
-                const response = await fetch('/upload-file', {
+                const response = await fetch('/upload-image', {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
-                    showResult(`File uploaded successfully!`, 'success');
-                    showLink(data.fileUrl);
+                    showResult(`Image uploaded successfully!`, 'success');
+                    showLink(data.imageUrl);
                 } else {
                     showResult(data.message || 'Upload failed.', 'error');
                 }
             } catch (error) {
                 console.error('Upload error:', error);
-                showResult('An error occurred during upload.', 'error');
+                showResult('An error occurred during image upload.', 'error');
             } finally {
                 uploadBtn.disabled = false;
-                uploadBtn.textContent = 'Upload File';
+                uploadBtn.textContent = 'Upload Image';
             }
         });
-        
+
         function showResult(message, type) {
             const resultDiv = document.getElementById('result');
             resultDiv.textContent = message;
             resultDiv.className = `result ${type}`;
             resultDiv.style.display = 'block';
         }
-        
+
         function showLink(url) {
             const resultDiv = document.getElementById('result');
             const linkContainer = document.createElement('div');
             linkContainer.className = 'link-container';
-            
+
             const linkText = document.createElement('div');
             linkText.className = 'link';
             linkText.textContent = url;
-            
+
             const copyBtn = document.createElement('button');
             copyBtn.className = 'copy-btn';
             copyBtn.textContent = 'Copy';
@@ -171,12 +479,21 @@
                     setTimeout(() => copyBtn.textContent = 'Copy', 2000);
                 });
             };
-            
+
             linkContainer.appendChild(linkText);
             linkContainer.appendChild(copyBtn);
             resultDiv.appendChild(linkContainer);
+
+            // Add usage example
+            const usageDiv = document.createElement('div');
+            usageDiv.className = 'usage-example';
+            usageDiv.innerHTML = `
+                <h3>How to use this image:</h3>
+                <p>Copy and paste this HTML code:</p>
+                <code>&lt;img src="${url}" alt="Uploaded image"&gt;</code>
+            `;
+            resultDiv.appendChild(usageDiv);
         }
     </script>
 </body>
-</html></content>
-<parameter name="filePath">c:\Users\vasip\Coding\COMPLETED\digitex\views\upload.ejs
+</html>

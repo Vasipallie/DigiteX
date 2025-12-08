@@ -24,16 +24,35 @@ const supakey = process.env.SUPAKEY ;
 //WARNING - DO NOT PUBLISH Api Keys VIA GITHUB OR ANY PUBLIC REPOSITORY
 const supabase = createClient(supalink, supakey); 
 
-// Multer setup for file uploads
+// Multer setup for image uploads
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'uploads'),
+    filename: (req, file, cb) => {
+        // Generate unique filename with original extension
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const extension = path.extname(file.originalname);
+        cb(null, uniqueSuffix + extension);
+    }
+});
+
 const upload = multer({
-    dest: path.join(__dirname, 'views', 'images'),
-    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
-}); 
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    fileFilter: (req, file, cb) => {
+        // Check if it's an image file
+        if (file && file.mimetype && file.mimetype.startsWith('image/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only image files are allowed'), false);
+        }
+    }
+});
 
 
 // Middleware data stuff, important for app to run
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'views')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
 app.use(cookieParser()); // Add cookie parser middleware
 app.use(express.json());                        
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -482,34 +501,24 @@ app.get('/upload', (req, res) => {
     res.render('upload');
 });
 
-// File upload route
-app.post('/upload-file', upload.single('file'), async (req, res) => {
+// Image upload route (public - no auth required)
+app.post('/upload-image', upload.single('image'), (req, res) => {
     try {
-        // Check authentication
-        const session = req.cookies.session;
-        if (!session) {
-            return res.status(401).json({ success: false, message: 'Not authenticated' });
-        }
-
-        const { data: { user } } = await supabase.auth.getUser(session.access_token);
-        if (!user) {
-            return res.status(401).json({ success: false, message: 'Invalid session' });
-        }
-
         if (!req.file) {
-            return res.status(400).json({ success: false, message: 'No file uploaded' });
+            return res.status(400).json({ success: false, message: 'No image uploaded' });
         }
 
-        // Generate the file URL
-        const fileUrl = `/images/${req.file.filename}`;
+        // Generate the full image URL
+        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+        const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
-        res.json({ 
-            success: true, 
-            message: 'File uploaded successfully', 
-            fileUrl: fileUrl 
+        res.json({
+            success: true,
+            message: 'Image uploaded successfully',
+            imageUrl: imageUrl
         });
     } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error('Error uploading image:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
