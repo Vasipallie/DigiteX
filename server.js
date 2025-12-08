@@ -499,6 +499,12 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
             return res.status(400).json({ success: false, message: 'No image uploaded' });
         }
 
+        // Check if Vercel Blob token is configured
+        if (!process.env.BLOB_READ_WRITE_TOKEN) {
+            console.error('BLOB_READ_WRITE_TOKEN environment variable is not set');
+            return res.status(500).json({ success: false, message: 'Server configuration error' });
+        }
+
         // Generate unique filename with original extension
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const extension = path.extname(req.file.originalname);
