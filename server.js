@@ -9,6 +9,7 @@ import cron from 'node-cron';
 import { Console, time } from 'console';
 import dotenv from 'dotenv'; 
 import multer from 'multer'; 
+import { put } from '@vercel/blob'; 
 
 dotenv.config();
 
@@ -25,16 +26,7 @@ const supakey = process.env.SUPAKEY ;
 const supabase = createClient(supalink, supakey); 
 
 // Multer setup for image uploads
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'uploads'),
-    filename: (req, file, cb) => {
-        // Generate unique filename with original extension
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const extension = path.extname(file.originalname);
-        cb(null, uniqueSuffix + extension);
-    }
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
     limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
@@ -52,7 +44,6 @@ const upload = multer({
 // Middleware data stuff, important for app to run
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'views')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
 app.use(cookieParser()); // Add cookie parser middleware
 app.use(express.json());                        
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -502,20 +493,27 @@ app.get('/upload', (req, res) => {
 });
 
 // Image upload route (public - no auth required)
-app.post('/upload-image', upload.single('image'), (req, res) => {
+app.post('/upload-image', upload.single('image'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ success: false, message: 'No image uploaded' });
         }
 
-        // Generate the full image URL
-        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
-        const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+        // Generate unique filename with original extension
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const extension = path.extname(req.file.originalname);
+        const filename = uniqueSuffix + extension;
+
+        // Upload to Vercel Blob
+        const blob = await put(filename, req.file.buffer, {
+            access: 'public',
+            contentType: req.file.mimetype
+        });
 
         res.json({
             success: true,
             message: 'Image uploaded successfully',
-            imageUrl: imageUrl
+            imageUrl: blob.url
         });
     } catch (error) {
         console.error('Error uploading image:', error);
